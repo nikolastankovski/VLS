@@ -1,0 +1,15 @@
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\bin\Debug\net6.0\VLS.Domain.deps.json
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\bin\Debug\net6.0\VLS.Domain.dll
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\bin\Debug\net6.0\VLS.Domain.pdb
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\bin\Debug\net6.0\VLS.Shared.dll
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\bin\Debug\net6.0\VLS.Shared.pdb
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.csproj.AssemblyReference.cache
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.AssemblyInfoInputs.cache
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.AssemblyInfo.cs
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.csproj.CoreCompileInputs.cache
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.csproj.CopyComplete
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.dll
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\refint\VLS.Domain.dll
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\VLS.Domain.pdb
+D:\Local Projects\VisitorLoggingSystem\VLS.Domain\obj\Debug\net6.0\ref\VLS.Domain.dll
