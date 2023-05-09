@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj",
+      "projectUniqueName": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj",
       "projectName": "VLS.Shared",
-      "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj",
+      "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj",
       "packagesPath": "C:\\Users\\stank\\.nuget\\packages\\",
-      "outputPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\obj\\",
+      "outputPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\stank\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Domain\\VLS.Domain.csproj": {}
+    "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Domain\\VLS.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Domain\\VLS.Domain.csproj": {
+    "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Domain\\VLS.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Domain\\VLS.Domain.csproj",
+        "projectUniqueName": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Domain\\VLS.Domain.csproj",
         "projectName": "VLS.Domain",
-        "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Domain\\VLS.Domain.csproj",
+        "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Domain\\VLS.Domain.csproj",
         "packagesPath": "C:\\Users\\stank\\.nuget\\packages\\",
-        "outputPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Domain\\obj\\",
+        "outputPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\stank\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj": {
-                "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj"
+              "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj": {
+                "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         }
       }
     },
-    "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj": {
+    "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj",
+        "projectUniqueName": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj",
         "projectName": "VLS.Shared",
-        "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\VLS.Shared.csproj",
+        "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\VLS.Shared.csproj",
         "packagesPath": "C:\\Users\\stank\\.nuget\\packages\\",
-        "outputPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Shared\\obj\\",
+        "outputPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\stank\\AppData\\Roaming\\NuGet\\NuGet.Config",

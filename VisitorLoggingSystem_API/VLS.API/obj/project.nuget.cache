@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/xr5eRyLo1meX3b6dT+PCv99bKsb+J97kp+3eclC7Y5usEh38KnoddCcxuL1lEX15Ah2mok9HJaq4bCphcGWuQ==",
+  "dgSpecHash": "s2relMf5JIoKbHcBBYQ1I93l0fVA4RkX6aLHKrDh76i+gJRaOYaXoAh7lnKwShzMf13vZd9ozepHDDhQlJjY6g==",
   "success": true,
-  "projectFilePath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.API\\VLS.API.csproj",
+  "projectFilePath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.API\\VLS.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\stank\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\stank\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

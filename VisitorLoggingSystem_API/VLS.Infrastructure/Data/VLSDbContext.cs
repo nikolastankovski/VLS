@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using VLS.Domain.Entities;
 
@@ -38,28 +39,169 @@ namespace VLS.Infrastructure.Data
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Reference>()
-                .HasMany(x => x.Locations)
-                .WithOne(x => x.Country)
+            builder.Entity<ApplicationFile>()
+                .HasKey(x => x.ApplicationFile_ID);
+
+            builder.Entity<Company>()
+                .HasKey(x => x.Company_ID);
+
+            builder.Entity<Course>()
+                .HasKey(x => x.Course_ID);
+
+            builder.Entity<CourseVersion>()
+                .HasKey(x => x.CourseVersion_ID);
+
+            builder.Entity<CourseVersion>()
+                .HasOne(x => x.Course)
+                .WithMany(x => x.CourseVersions)
+                .HasForeignKey(x => x.Course_ID)
+                .HasPrincipalKey(x => x.Course_ID);
+
+            builder.Entity<Employee>()
+                .HasKey(x => x.Employee_ID);
+
+            builder.Entity<Employee>()
+                .HasOne(x => x.OrganizationalUnit)
+                .WithMany(x => x.Employees)
+                .HasForeignKey(x => x.OrganizationalUnitCode)
+                .HasPrincipalKey(x => x.Code);
+
+            builder.Entity<Location>()
+                .HasKey(x => x.Location_ID);
+
+            builder.Entity<Location>()
+                .HasOne(x => x.Country)
+                .WithMany(x => x.LocationCountries)
                 .HasForeignKey(x => x.Country_ID)
                 .HasPrincipalKey(x => x.Reference_ID);
 
-            modelBuilder.Entity<Reference>()
-                .HasMany(x => x.Locations)
-                .WithOne(x => x.Country)
-                .HasForeignKey(x => x.Country_ID)
+            builder.Entity<Location>()
+                .HasOne(x => x.City)
+                .WithMany(x => x.Cities)
+                .HasForeignKey(x => x.City_ID)
                 .HasPrincipalKey(x => x.Reference_ID);
 
-            modelBuilder.Entity<Reference>()
-                .HasMany(x => x.Locations)
-                .WithOne(x => x.Country)
-                .HasForeignKey(x => x.Country_ID)
+            builder.Entity<Location>()
+                .HasOne(x => x.Municipality)
+                .WithMany(x => x.Municipalities)
+                .HasForeignKey(x => x.Municipality_ID)
                 .HasPrincipalKey(x => x.Reference_ID);
-                
 
-            OnModelCreatingPartial(modelBuilder);
+            builder.Entity<OrganizationalUnit>()
+                .HasKey(x => x.OrganizationalUnit_ID);
+
+            builder.Entity<Reference>()
+                .HasKey(x => x.Reference_ID);
+
+            builder.Entity<Reference>()
+                .HasOne(x => x.ReferenceType)
+                .WithMany(x => x.References)
+                .HasForeignKey(x => x.ReferenceType_ID)
+                .HasPrincipalKey(x => x.ReferenceType_ID);
+
+            builder.Entity<ReferenceType>()
+                .HasKey(x => x.ReferenceType_ID);
+
+            builder.Entity<TransactionVisitor>()
+                .HasKey(x => x.TransactionVisitor_ID);
+
+            builder.Entity<TransactionVisitor>()
+                .HasOne(x => x.Visitor)
+                .WithMany(x => x.TransactionVisitors)
+                .HasForeignKey(x => x.Visitor_ID)
+                .HasPrincipalKey(x => x.Visitor_ID);
+
+            builder.Entity<TransactionVisitor>()
+                .HasOne(x => x.Visitee)
+                .WithMany(x => x.TransactionVisitors)
+                .HasForeignKey(x => x.VisiteeCode)
+                .HasPrincipalKey(x => x.Code)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVisitor>()
+                .HasOne(x => x.OrganizationalUnit)
+                .WithMany(x => x.TransactionVisitors)
+                .HasForeignKey(x => x.OrganizationUnitCode)
+                .HasPrincipalKey(x => x.Code)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVisitor>()
+                .HasOne(x => x.Location)
+                .WithMany(x => x.TransactionVisitors)
+                .HasForeignKey(x => x.Location_ID)
+                .HasPrincipalKey(x => x.Location_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVisitor>()
+                .HasOne(x => x.Activity)
+                .WithMany(x => x.TransactionVisitors)
+                .HasForeignKey(x => x.Activity_ID)
+                .HasPrincipalKey(x => x.Reference_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Vehicle>()
+                .HasKey(x => x.Vehicle_ID);
+
+            builder.Entity<Vehicle>()
+                .HasOne(x => x.Company)
+                .WithMany(x => x.Vehicles)
+                .HasForeignKey(x => x.Company_ID)
+                .HasPrincipalKey(x => x.Company_ID);
+
+            builder.Entity<Visitor>()
+                .HasKey(x => x.Visitor_ID);
+
+            builder.Entity<Visitor>()
+                .HasOne(x => x.Company)
+                .WithMany(x => x.Visitors)
+                .HasForeignKey(x => x.Company_ID)
+                .HasPrincipalKey(x => x.Company_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Visitor>()
+                .HasOne(x => x.Country)
+                .WithMany(x => x.VisitorCountries)
+                .HasForeignKey(x => x.Country_ID)
+                .HasPrincipalKey(x => x.Reference_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Visitor>()
+                .HasOne(x => x.IDType)
+                .WithMany(x => x.IDTypes)
+                .HasForeignKey(x => x.IDType_ID)
+                .HasPrincipalKey(x => x.Reference_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<VisitorCourse>()
+                .HasKey(x => x.VisitorCourse_ID);
+
+            builder.Entity<VisitorCourse>()
+                .HasOne(x => x.Visitor)
+                .WithMany(x => x.VisitorCourses)
+                .HasForeignKey(x => x.Visitor_ID)
+                .HasPrincipalKey(x => x.Visitor_ID);
+
+            builder.Entity<VisitorCourse>()
+                .HasOne(x => x.Course)
+                .WithMany(x => x.VisitorCourses)
+                .HasForeignKey(x => x.Course_ID)
+                .HasPrincipalKey(x => x.Course_ID);
+
+            builder.Entity<VisitorCourse>()
+                .HasOne(x => x.Location)
+                .WithMany(x => x.VisitorCourses)
+                .HasForeignKey(x => x.Location_ID)
+                .HasPrincipalKey(x => x.Location_ID);
+
+            builder.Entity<VisitorCourse>()
+                .HasOne(x => x.SignatureFile)
+                .WithMany(x => x.VisitorCourses)
+                .HasForeignKey(x => x.SignatureFile_ID)
+                .HasPrincipalKey(x => x.ApplicationFile_ID);
+
+            OnModelCreatingPartial(builder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

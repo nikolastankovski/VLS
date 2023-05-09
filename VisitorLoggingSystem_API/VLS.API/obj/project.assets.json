@@ -4289,11 +4289,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.API\\VLS.API.csproj",
+      "projectUniqueName": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.API\\VLS.API.csproj",
       "projectName": "VLS.API",
-      "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.API\\VLS.API.csproj",
+      "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.API\\VLS.API.csproj",
       "packagesPath": "C:\\Users\\stank\\.nuget\\packages\\",
-      "outputPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.API\\obj\\",
+      "outputPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\stank\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4310,8 +4310,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Infrastructure\\VLS.Infrastructure.csproj": {
-              "projectPath": "D:\\Local Projects\\VisitorLoggingSystem\\VLS.Infrastructure\\VLS.Infrastructure.csproj"
+            "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Infrastructure\\VLS.Infrastructure.csproj": {
+              "projectPath": "D:\\OneDrive - foxIT doo Skopje\\Local Projects\\VisitorLoggingSystem\\VisitorLoggingSystem_API\\VLS.Infrastructure\\VLS.Infrastructure.csproj"
             }
           }
         }

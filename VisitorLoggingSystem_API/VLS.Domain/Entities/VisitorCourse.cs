@@ -1,4 +1,6 @@
-﻿namespace VLS.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VLS.Domain.Entities
 {
     public class VisitorCourse : BaseEntity
     {
@@ -6,6 +8,8 @@
         public long Visitor_ID { get; set; }
         public int Course_ID { get; set; }
         public int Location_ID { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime? DateCourseTaken { get; set; }
         public int SignatureFile_ID { get; set; }
 
