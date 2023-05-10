@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.Entities
 {
@@ -7,10 +8,10 @@ namespace VLS.Domain.Entities
         public int CourseVersion_ID { get; set; }
         public int Course_ID { get; set; }
 
-        [DataType(DataType.Date)]
+        [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateTime ValidFrom { get; set; }
 
-        [DataType(DataType.Date)]
+        [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateTime? ValidTo { get; set; }
         public int ValidityPeriodInMonths { get; set; }
 

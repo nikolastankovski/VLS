@@ -17,7 +17,7 @@ namespace VLS.Domain.Entities
         [MaxLength(255)]
         public string Name { get; set; } = null!;
 
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<TransactionVisitor> TransactionVisitors { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
+        public virtual ICollection<TransactionVisitor>? TransactionVisitors { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using VLS.Domain.Entities;
 
@@ -22,6 +21,7 @@ namespace VLS.Infrastructure.Data
         public virtual DbSet<OrganizationalUnit> OrganizationalUnits { get; set; } = null!;
         public virtual DbSet<Reference> References { get; set; } = null!;
         public virtual DbSet<ReferenceType> ReferenceTypes { get; set; } = null!;
+        public virtual DbSet<TransactionVehicle> TransactionVehicles { get; set; } = null!;
         public virtual DbSet<TransactionVisitor> TransactionVisitors { get; set; } = null!;
         public virtual DbSet<Vehicle> Vehicles { get; set; } = null!;
         public virtual DbSet<Visitor> Visitors { get; set; } = null!;
@@ -103,6 +103,37 @@ namespace VLS.Infrastructure.Data
 
             builder.Entity<ReferenceType>()
                 .HasKey(x => x.ReferenceType_ID);
+
+            builder.Entity<TransactionVehicle>()
+                .HasKey(x => x.TransactionVehicle_ID);
+
+            builder.Entity<TransactionVehicle>()
+                .HasOne(x => x.Location)
+                .WithMany(x => x.TransactionVehicles)
+                .HasForeignKey(x => x.Location_ID)
+                .HasPrincipalKey(x => x.Location_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVehicle>()
+                .HasOne(x => x.Vehicle)
+                .WithMany(x => x.TransactionVehicles)
+                .HasForeignKey(x => x.Vehicle_ID)
+                .HasPrincipalKey(x => x.Vehicle_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVehicle>()
+                .HasOne(x => x.EntryVisitor)
+                .WithMany(x => x.EntryVisitors)
+                .HasForeignKey(x => x.EntryVisitor_ID)
+                .HasPrincipalKey(x => x.Visitor_ID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TransactionVehicle>()
+                .HasOne(x => x.ExitVisitor)
+                .WithMany(x => x.ExitVisitors)
+                .HasForeignKey(x => x.ExitVisitor_ID)
+                .HasPrincipalKey(x => x.Visitor_ID)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<TransactionVisitor>()
                 .HasKey(x => x.TransactionVisitor_ID);

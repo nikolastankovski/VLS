@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.Entities
 {
@@ -8,6 +9,8 @@ namespace VLS.Domain.Entities
         {
             VisitorCourses = new HashSet<VisitorCourse>();
             TransactionVisitors = new HashSet<TransactionVisitor>();
+            EntryVisitors = new HashSet<TransactionVehicle>();
+            ExitVisitors = new HashSet<TransactionVehicle>();
         }
         public long Visitor_ID { get; set; }
 
@@ -18,7 +21,7 @@ namespace VLS.Domain.Entities
         [MaxLength(50)]
         public string IDNumber { get; set; } = null!;
 
-        [DataType(DataType.Date)]
+        [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateTime IDExpirationDate { get; set; }
 
         public int Country_ID { get; set; }
@@ -27,7 +30,9 @@ namespace VLS.Domain.Entities
         public virtual Company? Company { get; set; }
         public virtual Reference? Country { get; set; }
         public virtual Reference? IDType { get; set; }
-        public virtual ICollection<VisitorCourse> VisitorCourses { get; set; }
-        public virtual ICollection<TransactionVisitor> TransactionVisitors { get; set; }
+        public virtual ICollection<VisitorCourse>? VisitorCourses { get; set; }
+        public virtual ICollection<TransactionVisitor>? TransactionVisitors { get; set; }
+        public virtual ICollection<TransactionVehicle>? EntryVisitors { get; set; }
+        public virtual ICollection<TransactionVehicle>? ExitVisitors { get; set; }
     }
 }

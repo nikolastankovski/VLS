@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain
 {
@@ -6,11 +7,11 @@ namespace VLS.Domain
     {
         public int CreatedBy { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2(3)"), DataType(DataType.DateTime)]
         public DateTime CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2(3)"), DataType(DataType.DateTime)]
         public DateTime? ModifiedOn { get; set; }
     }
 }

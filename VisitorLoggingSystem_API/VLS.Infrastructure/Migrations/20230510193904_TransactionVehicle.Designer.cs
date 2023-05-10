@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VLS.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using VLS.Infrastructure.Data;
 namespace VLS.Infrastructure.Migrations
 {
     [DbContext(typeof(VLSDbContext))]
-    partial class VLSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230510193904_TransactionVehicle")]
+    partial class TransactionVehicle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Data")
                         .IsRequired()
@@ -54,7 +57,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -82,7 +85,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(100)
@@ -96,7 +99,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -124,7 +127,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsMandatory")
                         .HasColumnType("bit");
@@ -133,7 +136,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -165,19 +168,19 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ValidFrom")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ValidTo")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ValidityPeriodInMonths")
                         .HasColumnType("int");
@@ -206,7 +209,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -215,7 +218,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -261,13 +264,13 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("Municipality_ID")
                         .HasColumnType("int");
@@ -305,13 +308,13 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -340,7 +343,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -351,7 +354,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ReferenceType_ID")
                         .HasColumnType("int");
@@ -380,7 +383,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -391,7 +394,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ReferenceType_ID");
 
@@ -410,16 +413,16 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EntryDateTime")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("EntryVisitor_ID")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ExitDateTime")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("ExitVisitor_ID")
                         .HasColumnType("bigint");
@@ -431,7 +434,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("Vehicle_ID")
                         .HasColumnType("bigint");
@@ -464,13 +467,13 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EntryDateTime")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ExitDateTime")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Incident")
                         .HasColumnType("bit");
@@ -485,7 +488,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrganizationUnitCode")
                         .IsRequired()
@@ -537,7 +540,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
@@ -547,7 +550,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
@@ -555,7 +558,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("TechnicalCorrectnessExpireDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Vehicle_ID");
 
@@ -582,7 +585,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -590,7 +593,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("IDExpirationDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("IDNumber")
                         .IsRequired()
@@ -604,7 +607,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Visitor_ID");
 
@@ -632,10 +635,10 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateCourseTaken")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Location_ID")
                         .HasColumnType("int");
@@ -644,7 +647,7 @@ namespace VLS.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(3)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SignatureFile_ID")
                         .HasColumnType("int");

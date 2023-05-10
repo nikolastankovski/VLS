@@ -23,11 +23,11 @@ namespace VLS.Domain.Entities
         public string Code { get; set; } = null!;
 
         public virtual ReferenceType? ReferenceType { get; set; }
-        public virtual ICollection<Location> LocationCountries { get; set; }
-        public virtual ICollection<Location> Cities { get; set; }
-        public virtual ICollection<Location> Municipalities { get; set; }
-        public virtual ICollection<Visitor> VisitorCountries { get; set; }
-        public virtual ICollection<Visitor> IDTypes { get; set; }
-        public virtual ICollection<TransactionVisitor> TransactionVisitors { get; set; }
+        public virtual ICollection<Location>? LocationCountries { get; set; }
+        public virtual ICollection<Location>? Cities { get; set; }
+        public virtual ICollection<Location>? Municipalities { get; set; }
+        public virtual ICollection<Visitor>? VisitorCountries { get; set; }
+        public virtual ICollection<Visitor>? IDTypes { get; set; }
+        public virtual ICollection<TransactionVisitor>? TransactionVisitors { get; set; }
     }
 }

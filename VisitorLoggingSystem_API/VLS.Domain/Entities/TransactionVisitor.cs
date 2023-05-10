@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VLS.Domain.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.Entities
 {
@@ -22,10 +22,10 @@ namespace VLS.Domain.Entities
         [MaxLength(255)]
         public string? SpecificPlace { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2(3)"), DataType(DataType.DateTime)]
         public DateTime EntryDateTime { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [Column(TypeName = "datetime2(3)"), DataType(DataType.DateTime)]
         public DateTime? ExitDateTime { get; set; }
         public int Activity_ID { get; set; }
         public bool Incident { get; set; } = false;

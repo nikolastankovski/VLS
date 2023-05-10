@@ -20,7 +20,7 @@ namespace VLS.Domain.Entities
         public string ContentType { get; set; } = null!;
         public byte[] Data { get; set; } = null!;
 
-        public virtual ICollection<VisitorCourse> VisitorCourses { get; set; }
+        public virtual ICollection<VisitorCourse>? VisitorCourses { get; set; }
 
     }
 }

@@ -26,7 +26,7 @@ namespace VLS.Domain.Entities
         [MaxLength(50)]
         public string? IDNumber { get; set; }
 
-        public virtual ICollection<Visitor> Visitors { get; set; }
-        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<Visitor>? Visitors { get; set; }
+        public virtual ICollection<Vehicle>? Vehicles { get; set; }
     }
 }

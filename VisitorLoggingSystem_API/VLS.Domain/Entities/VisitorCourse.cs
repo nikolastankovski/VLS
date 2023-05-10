@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.Entities
 {
@@ -9,7 +10,7 @@ namespace VLS.Domain.Entities
         public int Course_ID { get; set; }
         public int Location_ID { get; set; }
 
-        [DataType(DataType.Date)]
+        [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateTime? DateCourseTaken { get; set; }
         public int SignatureFile_ID { get; set; }
 

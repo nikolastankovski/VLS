@@ -24,6 +24,6 @@ namespace VLS.Domain.Entities
         public bool IsActive { get; set; } = false;
 
         public virtual OrganizationalUnit? OrganizationalUnit { get; set; }
-        public virtual ICollection<TransactionVisitor> TransactionVisitors { get; set; }
+        public virtual ICollection<TransactionVisitor>? TransactionVisitors { get; set; }
     }
 }

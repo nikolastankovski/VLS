@@ -17,6 +17,6 @@ namespace VLS.Domain.Entities
         [MaxLength(255)]
         public string Description { get; set; } = null!;
 
-        public virtual ICollection<Reference> References { get; set; }
+        public virtual ICollection<Reference>? References { get; set; }
     }
 }

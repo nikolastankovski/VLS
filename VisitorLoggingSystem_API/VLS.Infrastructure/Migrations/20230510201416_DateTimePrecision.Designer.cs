@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VLS.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using VLS.Infrastructure.Data;
 namespace VLS.Infrastructure.Migrations
 {
     [DbContext(typeof(VLSDbContext))]
-    partial class VLSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230510201416_DateTimePrecision")]
+    partial class DateTimePrecision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
