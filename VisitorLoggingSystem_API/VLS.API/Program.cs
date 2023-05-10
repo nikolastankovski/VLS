@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VLS.Infrastructure.Data;
+using VLS.Infrastructure.Interfaces.IRepositories;
+using VLS.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region REPOSITORIES
+    builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+    builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+    builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+    builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+    builder.Services.AddScoped<IOrganizationalUnitRepository, OrganizationalUnitRepository>();
+    builder.Services.AddScoped<IReferenceRepository, ReferenceRepository>();
+    builder.Services.AddScoped<IReferenceTypeRepository, ReferenceTypeRepository>();
+    builder.Services.AddScoped<ITransactionVehicleRepository, TransactionVehicleRepository>();
+    builder.Services.AddScoped<ITransactionVisitorRepository, TransactionVisitorRepository>();
+    builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+    builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
+#endregion
 
 var app = builder.Build();
 

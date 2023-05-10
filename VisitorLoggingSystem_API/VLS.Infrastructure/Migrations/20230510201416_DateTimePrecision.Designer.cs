@@ -25,7 +25,7 @@ namespace VLS.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("VLS.Domain.Entities.ApplicationFile", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.ApplicationFile", b =>
                 {
                     b.Property<int>("ApplicationFile_ID")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("ApplicationFiles");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Company", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Company", b =>
                 {
                     b.Property<int>("Company_ID")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Course", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Course", b =>
                 {
                     b.Property<int>("Course_ID")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.CourseVersion", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.CourseVersion", b =>
                 {
                     b.Property<int>("CourseVersion_ID")
                         .ValueGeneratedOnAdd()
@@ -192,7 +192,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("CourseVersions");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Employee", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Employee", b =>
                 {
                     b.Property<int>("Employee_ID")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Location", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Location", b =>
                 {
                     b.Property<int>("Location_ID")
                         .ValueGeneratedOnAdd()
@@ -291,7 +291,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.OrganizationalUnit", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.OrganizationalUnit", b =>
                 {
                     b.Property<int>("OrganizationalUnit_ID")
                         .ValueGeneratedOnAdd()
@@ -326,7 +326,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("OrganizationalUnits");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Reference", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Reference", b =>
                 {
                     b.Property<int>("Reference_ID")
                         .ValueGeneratedOnAdd()
@@ -366,7 +366,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("References");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.ReferenceType", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.ReferenceType", b =>
                 {
                     b.Property<int>("ReferenceType_ID")
                         .ValueGeneratedOnAdd()
@@ -401,7 +401,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("ReferenceTypes");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.TransactionVehicle", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.TransactionVehicle", b =>
                 {
                     b.Property<long>("TransactionVehicle_ID")
                         .ValueGeneratedOnAdd()
@@ -452,7 +452,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("TransactionVehicles");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.TransactionVisitor", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.TransactionVisitor", b =>
                 {
                     b.Property<long>("TransactionVisitor_ID")
                         .ValueGeneratedOnAdd()
@@ -525,7 +525,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("TransactionVisitors");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Vehicle", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Vehicle", b =>
                 {
                     b.Property<long>("Vehicle_ID")
                         .ValueGeneratedOnAdd()
@@ -567,7 +567,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Visitor", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Visitor", b =>
                 {
                     b.Property<long>("Visitor_ID")
                         .ValueGeneratedOnAdd()
@@ -620,7 +620,7 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("Visitors");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.VisitorCourse", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.VisitorCourse", b =>
                 {
                     b.Property<int>("VisitorCourse_ID")
                         .ValueGeneratedOnAdd()
@@ -668,9 +668,9 @@ namespace VLS.Infrastructure.Migrations
                     b.ToTable("VisitorCourses");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.CourseVersion", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.CourseVersion", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Course", "Course")
+                    b.HasOne("VLS.Domain.DbModels.Course", "Course")
                         .WithMany("CourseVersions")
                         .HasForeignKey("Course_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -679,9 +679,9 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Employee", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Employee", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.OrganizationalUnit", "OrganizationalUnit")
+                    b.HasOne("VLS.Domain.DbModels.OrganizationalUnit", "OrganizationalUnit")
                         .WithMany("Employees")
                         .HasForeignKey("OrganizationalUnitCode")
                         .HasPrincipalKey("Code")
@@ -691,19 +691,19 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("OrganizationalUnit");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Location", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Location", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Reference", "City")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "City")
                         .WithMany("Cities")
                         .HasForeignKey("City_ID");
 
-                    b.HasOne("VLS.Domain.Entities.Reference", "Country")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "Country")
                         .WithMany("LocationCountries")
                         .HasForeignKey("Country_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Reference", "Municipality")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "Municipality")
                         .WithMany("Municipalities")
                         .HasForeignKey("Municipality_ID");
 
@@ -714,9 +714,9 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Municipality");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Reference", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Reference", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.ReferenceType", "ReferenceType")
+                    b.HasOne("VLS.Domain.DbModels.ReferenceType", "ReferenceType")
                         .WithMany("References")
                         .HasForeignKey("ReferenceType_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -725,26 +725,26 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("ReferenceType");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.TransactionVehicle", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.TransactionVehicle", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Visitor", "EntryVisitor")
+                    b.HasOne("VLS.Domain.DbModels.Visitor", "EntryVisitor")
                         .WithMany("EntryVisitors")
                         .HasForeignKey("EntryVisitor_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Visitor", "ExitVisitor")
+                    b.HasOne("VLS.Domain.DbModels.Visitor", "ExitVisitor")
                         .WithMany("ExitVisitors")
                         .HasForeignKey("ExitVisitor_ID")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("VLS.Domain.Entities.Location", "Location")
+                    b.HasOne("VLS.Domain.DbModels.Location", "Location")
                         .WithMany("TransactionVehicles")
                         .HasForeignKey("Location_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Vehicle", "Vehicle")
+                    b.HasOne("VLS.Domain.DbModels.Vehicle", "Vehicle")
                         .WithMany("TransactionVehicles")
                         .HasForeignKey("Vehicle_ID")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -759,34 +759,34 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.TransactionVisitor", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.TransactionVisitor", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Reference", "Activity")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "Activity")
                         .WithMany("TransactionVisitors")
                         .HasForeignKey("Activity_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Location", "Location")
+                    b.HasOne("VLS.Domain.DbModels.Location", "Location")
                         .WithMany("TransactionVisitors")
                         .HasForeignKey("Location_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.OrganizationalUnit", "OrganizationalUnit")
+                    b.HasOne("VLS.Domain.DbModels.OrganizationalUnit", "OrganizationalUnit")
                         .WithMany("TransactionVisitors")
                         .HasForeignKey("OrganizationUnitCode")
                         .HasPrincipalKey("Code")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Employee", "Visitee")
+                    b.HasOne("VLS.Domain.DbModels.Employee", "Visitee")
                         .WithMany("TransactionVisitors")
                         .HasForeignKey("VisiteeCode")
                         .HasPrincipalKey("Code")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("VLS.Domain.Entities.Visitor", "Visitor")
+                    b.HasOne("VLS.Domain.DbModels.Visitor", "Visitor")
                         .WithMany("TransactionVisitors")
                         .HasForeignKey("Visitor_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -803,9 +803,9 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Visitor");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Vehicle", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Vehicle", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Company", "Company")
+                    b.HasOne("VLS.Domain.DbModels.Company", "Company")
                         .WithMany("Vehicles")
                         .HasForeignKey("Company_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -814,20 +814,20 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Visitor", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Visitor", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Company", "Company")
+                    b.HasOne("VLS.Domain.DbModels.Company", "Company")
                         .WithMany("Visitors")
                         .HasForeignKey("Company_ID")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("VLS.Domain.Entities.Reference", "Country")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "Country")
                         .WithMany("VisitorCountries")
                         .HasForeignKey("Country_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Reference", "IDType")
+                    b.HasOne("VLS.Domain.DbModels.Reference", "IDType")
                         .WithMany("IDTypes")
                         .HasForeignKey("IDType_ID")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -840,27 +840,27 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("IDType");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.VisitorCourse", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.VisitorCourse", b =>
                 {
-                    b.HasOne("VLS.Domain.Entities.Course", "Course")
+                    b.HasOne("VLS.Domain.DbModels.Course", "Course")
                         .WithMany("VisitorCourses")
                         .HasForeignKey("Course_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Location", "Location")
+                    b.HasOne("VLS.Domain.DbModels.Location", "Location")
                         .WithMany("VisitorCourses")
                         .HasForeignKey("Location_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.ApplicationFile", "SignatureFile")
+                    b.HasOne("VLS.Domain.DbModels.ApplicationFile", "SignatureFile")
                         .WithMany("VisitorCourses")
                         .HasForeignKey("SignatureFile_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VLS.Domain.Entities.Visitor", "Visitor")
+                    b.HasOne("VLS.Domain.DbModels.Visitor", "Visitor")
                         .WithMany("VisitorCourses")
                         .HasForeignKey("Visitor_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -875,31 +875,31 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("Visitor");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.ApplicationFile", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.ApplicationFile", b =>
                 {
                     b.Navigation("VisitorCourses");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Company", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Company", b =>
                 {
                     b.Navigation("Vehicles");
 
                     b.Navigation("Visitors");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Course", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Course", b =>
                 {
                     b.Navigation("CourseVersions");
 
                     b.Navigation("VisitorCourses");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Employee", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Employee", b =>
                 {
                     b.Navigation("TransactionVisitors");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Location", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Location", b =>
                 {
                     b.Navigation("TransactionVehicles");
 
@@ -908,14 +908,14 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("VisitorCourses");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.OrganizationalUnit", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.OrganizationalUnit", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("TransactionVisitors");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Reference", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Reference", b =>
                 {
                     b.Navigation("Cities");
 
@@ -930,17 +930,17 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("VisitorCountries");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.ReferenceType", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.ReferenceType", b =>
                 {
                     b.Navigation("References");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Vehicle", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Vehicle", b =>
                 {
                     b.Navigation("TransactionVehicles");
                 });
 
-            modelBuilder.Entity("VLS.Domain.Entities.Visitor", b =>
+            modelBuilder.Entity("VLS.Domain.DbModels.Visitor", b =>
                 {
                     b.Navigation("EntryVisitors");
 

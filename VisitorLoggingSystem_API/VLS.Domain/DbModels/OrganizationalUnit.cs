@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VLS.Domain.Entities
+namespace VLS.Domain.DbModels
 {
     public class OrganizationalUnit : BaseEntity
     {

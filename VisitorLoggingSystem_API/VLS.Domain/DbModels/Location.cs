@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VLS.Domain.Entities;
+using VLS.Domain.DbModels;
 
-namespace VLS.Domain.Entities
+namespace VLS.Domain.DbModels
 {
     public class Location : BaseEntity
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using VLS.Domain.Entities;
+using VLS.Domain.DbModels;
 
 namespace VLS.Infrastructure.Data
 {
