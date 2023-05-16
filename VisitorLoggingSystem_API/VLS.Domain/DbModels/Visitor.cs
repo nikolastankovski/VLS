@@ -22,7 +22,7 @@ namespace VLS.Domain.DbModels
         public string IDNumber { get; set; } = null!;
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
-        public DateTime IDExpirationDate { get; set; }
+        public DateOnly IDExpirationDate { get; set; }
 
         public int Country_ID { get; set; }
         public int? Company_ID { get; set; }

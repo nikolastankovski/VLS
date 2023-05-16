@@ -9,10 +9,10 @@ namespace VLS.Domain.DbModels
         public int Course_ID { get; set; }
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
-        public DateTime ValidFrom { get; set; }
+        public DateOnly ValidFrom { get; set; }
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
-        public DateTime? ValidTo { get; set; }
+        public DateOnly? ValidTo { get; set; }
         public int ValidityPeriodInMonths { get; set; }
 
         public virtual Course? Course { get; set; }

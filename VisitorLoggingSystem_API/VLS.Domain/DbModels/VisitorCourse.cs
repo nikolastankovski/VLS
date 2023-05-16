@@ -11,7 +11,7 @@ namespace VLS.Domain.DbModels
         public int Location_ID { get; set; }
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
-        public DateTime? DateCourseTaken { get; set; }
+        public DateOnly? DateCourseTaken { get; set; }
         public int SignatureFile_ID { get; set; }
 
         public virtual Visitor? Visitor { get; set; }

@@ -16,7 +16,7 @@ namespace VLS.Domain.DbModels
         public string RegistrationNumber { get; set; } = null!;
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
-        public DateTime TechnicalCorrectnessExpireDate { get; set; }
+        public DateOnly TechnicalCorrectnessExpireDate { get; set; }
 
         [MaxLength(255)]
         public string? Description { get; set; }
