@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using VLS.Domain;
-using VLS.Domain.CustomModels;
-using VLS.Infrastructure.Data;
-using VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories;
 using VLS.Shared.Resources;
 
 namespace VLS.Infrastructure.Repositories.BaseRepositories

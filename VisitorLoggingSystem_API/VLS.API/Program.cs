@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VLS.Infrastructure.Data;
 using VLS.Infrastructure.Interfaces.IRepositories;
 using VLS.Infrastructure.Repositories;
+using VLS.API.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

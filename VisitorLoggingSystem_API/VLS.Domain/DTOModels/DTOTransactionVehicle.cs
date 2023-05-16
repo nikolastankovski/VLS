@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace VLS.Domain.DbModels
+namespace VLS.Domain.DTOModels
 {
-    public class TransactionVehicle : BaseEntity
+    public class DTOTransactionVehicle
     {
         public long TransactionVehicle_ID { get; set; }
         public int Location_ID { get; set; }
@@ -16,10 +16,5 @@ namespace VLS.Domain.DbModels
         public DateTime? ExitDateTime { get; set; }
         public long EntryVisitor_ID { get; set; }
         public long? ExitVisitor_ID { get; set; }
-
-        public virtual Location? Location { get; set; }
-        public virtual Vehicle? Vehicle { get; set; }
-        public virtual Visitor? EntryVisitor { get; set; }
-        public virtual Visitor? ExitVisitor { get; set; }
     }
 }

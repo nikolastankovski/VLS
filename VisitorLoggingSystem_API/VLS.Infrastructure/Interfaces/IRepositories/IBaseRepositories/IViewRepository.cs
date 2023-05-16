@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using VLS.Domain;
 
 namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
 {

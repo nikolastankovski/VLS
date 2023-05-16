@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
-using VLS.Domain;
-using VLS.Infrastructure.Data;
-using VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories;
 
 namespace VLS.Infrastructure.Repositories.BaseRepositories
 {

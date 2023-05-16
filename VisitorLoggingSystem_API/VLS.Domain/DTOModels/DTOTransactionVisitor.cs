@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace VLS.Domain.DbModels
+namespace VLS.Domain.DTOModels
 {
-    public class TransactionVisitor : BaseEntity
+    public class DTOTransactionVisitor
     {
         public long TransactionVisitor_ID { get; set; }
         public long Visitor_ID { get; set; }
@@ -29,11 +29,5 @@ namespace VLS.Domain.DbModels
         public int Activity_ID { get; set; }
         public bool Incident { get; set; } = false;
         public string? IncidentDescription { get; set; }
-
-        public virtual Visitor? Visitor { get; set; }
-        public virtual Employee? Visitee { get; set; }
-        public virtual OrganizationalUnit? OrganizationalUnit { get; set; }
-        public virtual Location? Location { get; set; }
-        public virtual Reference? Activity { get; set; }
     }
 }

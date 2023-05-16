@@ -1,7 +1,4 @@
-﻿using VLS.Domain;
-using VLS.Domain.CustomModels;
-
-namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
+﻿namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
 {
     public interface IRepository<T> : IViewRepository<T> where T : BaseEntity
     {
