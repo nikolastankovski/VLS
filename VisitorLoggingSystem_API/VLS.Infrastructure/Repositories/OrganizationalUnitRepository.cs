@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace VLS.Infrastructure.Repositories
 {
-    public class OrganizationalUnitRepository : Repository<OrganizationalUnit>, IOrganizationalUnitRepository
+    public class OrganizationalUnitRepository : Repository<OrganizationalUnit, VMOrganizationalUnit, DTOOrganizationalUnit>, IOrganizationalUnitRepository
     {
-        public OrganizationalUnitRepository(VLSDbContext context, ILogger<OrganizationalUnit> logger) : base(context, logger)
+        public OrganizationalUnitRepository(VLSDbContext context, ILogger<OrganizationalUnit> logger, IMapper mapper) : base(context, logger, mapper)
         {
         }
     }

@@ -2,7 +2,7 @@
 
 namespace VLS.Domain.DTOModels
 {
-    public class DTOEmploee
+    public class DTOEmployee
     {
         public int Employee_ID { get; set; }
 

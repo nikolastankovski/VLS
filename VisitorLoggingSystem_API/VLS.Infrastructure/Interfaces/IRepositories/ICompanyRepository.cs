@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface ICompanyRepository : IRepository<Company>
+    public interface ICompanyRepository : IRepository<Company, VMCompany, DTOCompany>
     {
     }
 }

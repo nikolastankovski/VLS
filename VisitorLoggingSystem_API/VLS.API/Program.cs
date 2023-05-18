@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VLS.Infrastructure.Data;
-using VLS.Infrastructure.Interfaces.IRepositories;
 using VLS.Infrastructure.Repositories;
-using VLS.API.Controllers;
+using VLS.Infrastructure.Mappers;
+using AutoMapper;
+using VLS.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<VLSDbContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddAutoMapper(Helper.GetAutoMapperProfilesFromAllAssemblies().ToArray());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -2,23 +2,33 @@
 
 namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
 {
-    public interface IViewRepository<T> where T : BaseEntity
+    public interface IViewRepository<TModel, TViewModel, TDTO> 
+        where TModel : BaseEntity
+        where TViewModel : VMBaseEntity
     {
-        List<T> Get(
-            Expression<Func<T, bool>>? filter = null,
-            Expression<Func<T, int, T>>? select = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        List<TModel> Get(
+            Expression<Func<TModel, bool>>? filter = null,
+            Expression<Func<TModel, int, TModel>>? select = null,
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>>? orderBy = null,
             string includeProperties = ""
         );
-        Task<List<T>> GetAsync(
-            Expression<Func<T, bool>>? filter = null,
-            Expression<Func<T, int, T>>? select = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        Task<List<TModel>> GetAsync(
+            Expression<Func<TModel, bool>>? filter = null,
+            Expression<Func<TModel, int, TModel>>? select = null,
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>>? orderBy = null,
             string includeProperties = ""
         );
-        List<T> GetAll(bool? isActive = null);
-        Task<List<T>> GetAllAsync(bool? isActive = null);
-        T? GetById(object? id);
-        Task<T?> GetByIdAsync(object? id);
+        List<TModel> GetAll(bool? isActive = null);
+        List<TViewModel> GetAllVM(bool? isActive = null);
+        List<TDTO> GetAllDTO(bool? isActive = null);
+        Task<List<TModel>> GetAllAsync(bool? isActive = null);
+        Task<List<TViewModel>> GetAllVMAsync(bool? isActive = null);
+        Task<List<TDTO>> GetAllDTOAsync(bool? isActive = null);
+        TModel? GetById(object? id);
+        TViewModel? GetVMById(object? id);
+        TDTO? GetDTOById(object? id);
+        Task<TModel?> GetByIdAsync(object? id);
+        Task<TViewModel?> GetVMByIdAsync(object? id);
+        Task<TDTO?> GetDTOByIdAsync(object? id);
     }
 }

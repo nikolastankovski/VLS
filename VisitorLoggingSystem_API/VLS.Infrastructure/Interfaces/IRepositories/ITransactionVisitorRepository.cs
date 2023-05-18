@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface ITransactionVisitorRepository : IRepository<TransactionVisitor>
+    public interface ITransactionVisitorRepository : IRepository<TransactionVisitor, VMTransactionVisitor, DTOTransactionVisitor>
     {
     }
 }

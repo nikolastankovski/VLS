@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace VLS.Infrastructure.Repositories
 {
-    public class TransactionVehicleRepository : Repository<TransactionVehicle>, ITransactionVehicleRepository
+    public class TransactionVehicleRepository : Repository<TransactionVehicle, VMTransactionVehicle, DTOTransactionVehicle>, ITransactionVehicleRepository
     {
-        public TransactionVehicleRepository(VLSDbContext context, ILogger<TransactionVehicle> logger) : base(context, logger)
+        public TransactionVehicleRepository(VLSDbContext context, ILogger<TransactionVehicle> logger, IMapper mapper) : base(context, logger, mapper)
         {
         }
     }

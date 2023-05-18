@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace VLS.Infrastructure.Repositories
 {
-    public class CompanyRepository : Repository<Company>, ICompanyRepository
+    public class CompanyRepository : Repository<Company, VMCompany, DTOCompany>, ICompanyRepository
     {
-        public CompanyRepository(VLSDbContext context, ILogger<Company> logger) : base(context, logger)
+        public CompanyRepository(VLSDbContext context, ILogger<Company> logger, IMapper mapper) : base(context, logger, mapper)
         {
         }
     }

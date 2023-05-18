@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace VLS.Infrastructure.Repositories
 {
-    public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : Repository<Employee, VMEmployee, DTOEmployee>, IEmployeeRepository
     {
-        public EmployeeRepository(VLSDbContext context, ILogger<Employee> logger) : base(context, logger)
+        public EmployeeRepository(VLSDbContext context, ILogger<Employee> logger, IMapper mapper) : base(context, logger, mapper)
         {
         }
     }
