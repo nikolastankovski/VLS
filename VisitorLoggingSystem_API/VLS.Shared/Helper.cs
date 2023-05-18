@@ -8,10 +8,10 @@ namespace VLS.Shared
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var aType in assembly.GetTypes())
+                foreach (var assemblyType in assembly.GetTypes())
                 {
-                    if (aType.IsClass && !aType.IsAbstract && aType.IsSubclassOf(typeof(Profile)))
-                        yield return aType;
+                    if (assemblyType.IsClass && !assemblyType.IsAbstract && assemblyType.IsSubclassOf(typeof(Profile)))
+                        yield return assemblyType;
                 }
             }
         }

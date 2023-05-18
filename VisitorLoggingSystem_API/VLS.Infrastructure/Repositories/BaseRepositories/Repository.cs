@@ -38,7 +38,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -60,7 +60,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -85,7 +85,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -111,7 +111,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -131,7 +131,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -153,7 +153,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -178,7 +178,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -205,7 +205,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -225,7 +225,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -262,7 +262,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -282,7 +282,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -319,7 +319,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -339,7 +339,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -364,7 +364,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -384,7 +384,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
@@ -409,7 +409,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {e.InnerException}" };
+                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
     }

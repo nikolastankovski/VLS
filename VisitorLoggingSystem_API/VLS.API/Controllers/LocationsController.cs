@@ -27,8 +27,7 @@ namespace VLS.API.Controllers
 
         // GET: api/Locations/5
         [HttpGet(nameof(GetById) + "/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<VMLocation>> GetById(int id)
         {
             DTOLocation? location = await _locationRepo.GetDTOByIdAsync(id);
@@ -39,9 +38,38 @@ namespace VLS.API.Controllers
             return Ok(location);
         }
 
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Location>> Create(DTOLocation location)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var create = await _locationRepo.CreateAsync(location);
+
+            if (!create.IsSuccess)
+                return BadRequest(create.Message);
+
+            return Ok(create.Message);
+        }
+        
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Location>> BulkCreate(List<DTOLocation> locations)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var create = await _locationRepo.CreateAsync(locations);
+
+            if (!create.IsSuccess)
+                return BadRequest(create.Message);
+
+            return Ok(create.Message);
+        }
         // PUT: api/Locations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutLocation(int id, Location location)
         {
             if (id != location.Location_ID)
@@ -68,42 +96,22 @@ namespace VLS.API.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/Locations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Location>> Create(DTOLocation location)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            return Ok(_locationRepo.Create(location));
-        }
+        
 
         // DELETE: api/Locations/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLocation(int id)
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_context.Locations == null)
-            {
-                return NotFound();
-            }
-            var location = await _context.Locations.FindAsync(id);
-            if (location == null)
-            {
-                return NotFound();
-            }
+            var delete = await _locationRepo.DeleteAsync(id);
 
-            _context.Locations.Remove(location);
-            await _context.SaveChangesAsync();
+            if(!delete.IsSuccess)
+                return BadRequest(delete.Message);
 
-            return NoContent();
-        }
-
-        private bool LocationExists(int id)
-        {
-            return (_context.Locations?.Any(e => e.Location_ID == id)).GetValueOrDefault();
+            return Ok(delete.Message);
         }
     }
 }
