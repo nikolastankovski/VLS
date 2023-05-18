@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VLS.Infrastructure.Repositories;
-using VLS.Infrastructure.Mappers;
-using AutoMapper;
 using VLS.Shared;
+using VLS.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +28,10 @@ builder.Services.AddSwaggerGen();
     builder.Services.AddScoped<ITransactionVisitorRepository, TransactionVisitorRepository>();
     builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
     builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
+#endregion
+
+#region SERVICES
+    builder.Services.AddScoped<LocationService>();
 #endregion
 
 var app = builder.Build();

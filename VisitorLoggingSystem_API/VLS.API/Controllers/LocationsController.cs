@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VLS.Domain.ViewModels;
+using VLS.Infrastructure.Services;
+using VLS.Shared.Resources;
 
 namespace VLS.API.Controllers
 {
@@ -10,14 +12,16 @@ namespace VLS.API.Controllers
     {
         private readonly VLSDbContext _context;
         private readonly ILocationRepository _locationRepo;
+        private readonly LocationService _locationService;
 
-        public LocationsController(VLSDbContext context, ILocationRepository locationRepo)
+        public LocationsController(VLSDbContext context, ILocationRepository locationRepo, LocationService locationService)
         {
             _context = context;
             _locationRepo = locationRepo;
+            _locationService = locationService;
         }
 
-        // GET: api/Locations
+        // GET: api/Locations/GetAll
         [HttpGet(nameof(GetAll))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<VMLocation>>> GetAll()
@@ -25,7 +29,7 @@ namespace VLS.API.Controllers
             return Ok(await _locationRepo.GetAllVMAsync());
         }
 
-        // GET: api/Locations/5
+        // GET: api/Locations/GetById/5
         [HttpGet(nameof(GetById) + "/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<VMLocation>> GetById(int id)
@@ -38,6 +42,7 @@ namespace VLS.API.Controllers
             return Ok(location);
         }
 
+        // POST: api/Locations/Create
         [HttpPost(nameof(Create))]
         [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Location>> Create(DTOLocation location)
@@ -52,7 +57,8 @@ namespace VLS.API.Controllers
 
             return Ok(create.Message);
         }
-        
+
+        // POST: api/Locations/BulkCreate
         [HttpPost(nameof(BulkCreate))]
         [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Location>> BulkCreate(List<DTOLocation> locations)
@@ -67,43 +73,26 @@ namespace VLS.API.Controllers
 
             return Ok(create.Message);
         }
-        // PUT: api/Locations/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Update(DTOLocation location)
         {
-            if (id != location.Location_ID)
-            {
+            if(!ModelState.IsValid)
                 return BadRequest();
-            }
 
-            _context.Entry(location).State = EntityState.Modified;
+            var updateResponse = await _locationService.UpdateAsync(location);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
 
-            return NoContent();
-        }*/
+            return Ok(updateResponse);
+        }
 
-        // POST: api/Locations
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        
-
-        // DELETE: api/Locations/5
+        // DELETE: api/Locations/Delete/5
         [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)
         {
             var delete = await _locationRepo.DeleteAsync(id);
