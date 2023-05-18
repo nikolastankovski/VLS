@@ -34,6 +34,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.Add(entity);
                 _context.SaveChanges();
 
+                //return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate, Data = entity.GetType()?.GetProperty($"{nameof(TModel)}_ID")?.GetValue(entity, null) };
                 return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
             }
             catch (Exception e)

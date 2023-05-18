@@ -88,6 +88,15 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Записот не е во ред!.
+        /// </summary>
+        public static string ModelStateInvalid {
+            get {
+                return ResourceManager.GetString("ModelStateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Успешно!.
         /// </summary>
         public static string Success {

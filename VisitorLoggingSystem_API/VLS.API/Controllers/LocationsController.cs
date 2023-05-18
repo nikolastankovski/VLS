@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.ViewModels;
 using VLS.Infrastructure.Services;
 using VLS.Shared.Resources;
 
@@ -10,77 +8,81 @@ namespace VLS.API.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly VLSDbContext _context;
         private readonly ILocationRepository _locationRepo;
         private readonly LocationService _locationService;
 
-        public LocationsController(VLSDbContext context, ILocationRepository locationRepo, LocationService locationService)
+        public LocationsController(ILocationRepository locationRepo, LocationService locationService)
         {
-            _context = context;
             _locationRepo = locationRepo;
             _locationService = locationService;
         }
 
         // GET: api/Locations/GetAll
         [HttpGet(nameof(GetAll))]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<VMLocation>>> GetAll()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await _locationRepo.GetAllVMAsync());
+            var response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
         // GET: api/Locations/GetById/5
         [HttpGet(nameof(GetById) + "/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<VMLocation>> GetById(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
             DTOLocation? location = await _locationRepo.GetDTOByIdAsync(id);
 
             if (location is null)
-                return BadRequest();
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound } );
 
-            return Ok(location);
+            return Ok(new ActionResponse() { IsSuccess = true, Data = location });
         }
 
         // POST: api/Locations/Create
         [HttpPost(nameof(Create))]
-        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Location>> Create(DTOLocation location)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOLocation location)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
-            var create = await _locationRepo.CreateAsync(location);
+            var createResponse = await _locationRepo.CreateAsync(location);
 
-            if (!create.IsSuccess)
-                return BadRequest(create.Message);
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return Ok(create.Message);
+            return Ok(createResponse);
         }
 
         // POST: api/Locations/BulkCreate
         [HttpPost(nameof(BulkCreate))]
-        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Location>> BulkCreate(List<DTOLocation> locations)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOLocation> locations)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
-            var create = await _locationRepo.CreateAsync(locations);
+            var createResponse = await _locationRepo.CreateAsync(locations);
 
-            if (!create.IsSuccess)
-                return BadRequest(create.Message);
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return Ok(create.Message);
+            return Ok(createResponse);
         }
 
         // PUT: api/Locations/Update
         [HttpPut(nameof(Update))]
-        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Update(DTOLocation location)
         {
             if(!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
             var updateResponse = await _locationService.UpdateAsync(location);
 
@@ -92,15 +94,16 @@ namespace VLS.API.Controllers
 
         // DELETE: api/Locations/Delete/5
         [HttpDelete(nameof(Delete) + "/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK), ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))] 
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
         {
-            var delete = await _locationRepo.DeleteAsync(id);
+            var deleteResponse = await _locationRepo.DeleteAsync(id);
 
-            if(!delete.IsSuccess)
-                return BadRequest(delete.Message);
+            if(!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
 
-            return Ok(delete.Message);
+            return Ok(deleteResponse);
         }
     }
 }

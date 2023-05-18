@@ -3,9 +3,9 @@
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 namespace VLS.Infrastructure.Mappers
 {
-    public class mapLocation : Profile
+    public class MAPLocation : Profile
     {
-        public mapLocation() 
+        public MAPLocation() 
         {
             CreateMap<Location, DTOLocation>();
             CreateMap<DTOLocation, Location>();

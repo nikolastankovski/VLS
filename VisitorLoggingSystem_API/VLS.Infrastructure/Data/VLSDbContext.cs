@@ -13,7 +13,9 @@ namespace VLS.Infrastructure.Data
         }
 
         public virtual DbSet<ApplicationFile> ApplicationFiles { get; set; } = null!;
+        public virtual DbSet<City> Cities { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
+        public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Course> Courses { get; set; } = null!;
         public virtual DbSet<CourseVersion> CourseVersions { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
@@ -44,8 +46,24 @@ namespace VLS.Infrastructure.Data
             builder.Entity<ApplicationFile>()
                 .HasKey(x => x.ApplicationFile_ID);
 
+            builder.Entity<City>()
+                .HasKey(x => x.City_ID);
+
+            builder.Entity<City>()
+                .HasOne(x => x.Country)
+                .WithMany(x => x.Cities)
+                .HasForeignKey(x => x.Country_ID)
+                .HasPrincipalKey(x => x.Country_ID);
+
             builder.Entity<Company>()
                 .HasKey(x => x.Company_ID);
+
+            builder.Entity<Country>()
+                    .HasKey(x => x.Country_ID);
+
+            builder.Entity<Country>()
+                .Property(x => x.IsEUMember)
+                .HasDefaultValue(false);
 
             builder.Entity<Course>()
                 .HasKey(x => x.Course_ID);

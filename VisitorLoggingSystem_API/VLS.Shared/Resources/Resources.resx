@@ -126,6 +126,9 @@
   <data name="Error" xml:space="preserve">
     <value>Грешка!</value>
   </data>
+  <data name="ModelStateInvalid" xml:space="preserve">
+    <value>Записот не е во ред!</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Успешно!</value>
   </data>
