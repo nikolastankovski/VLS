@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using VLS.Infrastructure.Services;
 using VLS.Shared.Resources;
 
@@ -22,7 +23,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            var response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetAllVMAsync() };
+            var response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetVMAsync(includeProperties: $"{nameof(Country)},{nameof(City)}") };
 
             return Ok(response);
         }

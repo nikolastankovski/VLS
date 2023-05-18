@@ -21,7 +21,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(new ActionResponse() { IsSuccess = true, Data = await _cityRepo.GetAllVMAsync() });
+            return Ok(new ActionResponse() { IsSuccess = true, Data = await _cityRepo.GetVMAsync(includeProperties: nameof(Country)) } );
         }
 
         // GET: api/Cities/GetById/1

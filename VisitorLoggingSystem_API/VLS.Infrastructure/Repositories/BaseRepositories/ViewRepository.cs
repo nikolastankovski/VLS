@@ -161,13 +161,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
 
             return entities;
         }
-        public virtual List<TViewModel> GetAllVM(bool? isActive = null)
-        {
-            List<TViewModel> entities = _entity.Select(e => _mapper.Map<TViewModel>(e)).ToList();
-            _context.ChangeTracker.Clear();
-
-            return entities;
-        }
         public virtual List<TDTO> GetAllDTO(bool? isActive = null)
         {
             List<TDTO> entities = _entity.Select(e => _mapper.Map<TDTO>(e)).ToList();
@@ -179,13 +172,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
         public virtual async Task<List<TModel>> GetAllAsync(bool? isActive = null)
         {
             List<TModel> entities = await _entity.ToListAsync();
-            _context.ChangeTracker.Clear();
-
-            return entities;
-        }
-        public virtual async Task<List<TViewModel>> GetAllVMAsync(bool? isActive = null)
-        {
-            List<TViewModel> entities = await _entity.Select(e => _mapper.Map<TViewModel>(e)).ToListAsync();
             _context.ChangeTracker.Clear();
 
             return entities;
@@ -205,13 +191,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
 
             return entity;
         }
-        public virtual TViewModel? GetVMById(object? id)
-        {
-            TViewModel? entity = _mapper.Map<TViewModel>(_entity.Find(id));
-            _context.ChangeTracker.Clear();
-
-            return entity;
-        }
         public virtual TDTO? GetDTOById(object? id)
         {
             TDTO? entity = _mapper.Map<TDTO>(_entity.Find(id));
@@ -223,13 +202,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
         public virtual async Task<TModel?> GetByIdAsync(object? id)
         {
             TModel? entity = await _entity.FindAsync(id);
-            _context.ChangeTracker.Clear();
-
-            return entity;
-        }
-        public virtual async Task<TViewModel?> GetVMByIdAsync(object? id)
-        {
-            TViewModel? entity = _mapper.Map<TViewModel>(await _entity.FindAsync(id));
             _context.ChangeTracker.Clear();
 
             return entity;
