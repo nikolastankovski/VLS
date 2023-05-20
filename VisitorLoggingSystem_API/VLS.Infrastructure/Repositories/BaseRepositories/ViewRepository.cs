@@ -247,7 +247,14 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
         }
         public virtual async Task<TViewModel?> GetVMByIdAsync(object id)
         {
-            TViewModel? entity = _mapper.Map<TViewModel>(await _entity.FindAsync(id));
+            var includeProperties = GetIncludeProperties();
+
+            IQueryable<TModel> query = _entity;
+            query = includeProperties.Aggregate(query, (curr, includeProperty) => curr.Include(includeProperty));
+            query = query.Where(GetWhereClauseByPK(id));
+
+            TViewModel entity = _mapper.Map<TViewModel>(await query.FirstOrDefaultAsync());
+            
             _context.ChangeTracker.Clear();
 
             return entity;

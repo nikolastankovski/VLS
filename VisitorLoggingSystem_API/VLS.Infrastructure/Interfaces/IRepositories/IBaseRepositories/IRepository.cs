@@ -10,8 +10,8 @@
         ActionResponse Create(List<TDTO> DbModels);
         Task<ActionResponse> CreateAsync(TModel entity);
         Task<ActionResponse> CreateAsync(TDTO entity);
-        Task<ActionResponse> CreateAsync(List<TModel> DbModels);
-        Task<ActionResponse> CreateAsync(List<TDTO> DbModels);
+        Task<ActionResponse> CreateAsync(List<TModel> entities);
+        Task<ActionResponse> CreateAsync(List<TDTO> entities);
 
         ActionResponse Delete(object id);
         ActionResponse Delete(List<object> ids);

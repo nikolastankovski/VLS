@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
 
 namespace VLS.Infrastructure.Repositories
 {
@@ -7,6 +8,10 @@ namespace VLS.Infrastructure.Repositories
     {
         public VisitorRepository(VLSDbContext context, ILogger<Visitor> logger, IMapper mapper) : base(context, logger, mapper)
         {
+        }
+        internal override Expression<Func<Visitor, bool>> GetWhereClauseByPK(object id)
+        {
+            return x => x.VisitorId == Convert.ToInt64(id);
         }
     }
 }

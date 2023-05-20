@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using VLS.Infrastructure.Services;
 using VLS.Shared.Resources;
 
@@ -7,15 +6,15 @@ namespace VLS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationsController : ControllerBase
+    public class CompaniesController : ControllerBase
     {
-        private readonly ILocationRepository _locationRepo;
-        private readonly LocationService _locationService;
+        private readonly ICompanyRepository _companyRepo;
+        private readonly CompanyService _companyService;
 
-        public LocationsController(ILocationRepository locationRepo, LocationService locationService)
+        public CompaniesController(ICompanyRepository companyRepo, CompanyService companyService)
         {
-            _locationRepo = locationRepo;
-            _locationService = locationService;
+            _companyRepo = companyRepo;
+            _companyService = companyService;
         }
 
         // GET: api/Locations/GetAll
@@ -23,7 +22,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            var response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetAllVMAsync() };
+            var response = new ActionResponse() { IsSuccess = true, Data = await _companyRepo.GetAllVMAsync() };
 
             return Ok(response);
         }
@@ -34,24 +33,24 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetById(int id)
         {
-            DTOLocation? location = await _locationRepo.GetDTOByIdAsync(id);
+            DTOCompany? company = await _companyRepo.GetDTOByIdAsync(id);
 
-            if (location is null)
-                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound } );
+            if (company is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return Ok(new ActionResponse() { IsSuccess = true, Data = location });
+            return Ok(new ActionResponse() { IsSuccess = true, Data = company });
         }
 
         // POST: api/Locations/Create
         [HttpPost(nameof(Create))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> Create(DTOLocation location)
+        public async Task<IActionResult> Create(DTOCompany company)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var createResponse = await _locationRepo.CreateAsync(location);
+            var createResponse = await _companyRepo.CreateAsync(company);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -63,12 +62,12 @@ namespace VLS.API.Controllers
         [HttpPost(nameof(BulkCreate))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> BulkCreate(List<DTOLocation> locations)
+        public async Task<IActionResult> BulkCreate(List<DTOCompany> companies)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var createResponse = await _locationRepo.CreateAsync(locations);
+            var createResponse = await _companyRepo.CreateAsync(companies);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -80,12 +79,12 @@ namespace VLS.API.Controllers
         [HttpPut(nameof(Update))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> Update(DTOLocation location)
+        public async Task<IActionResult> Update(DTOCompany company)
         {
-            if(!ModelState.IsValid)
-                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var updateResponse = await _locationService.UpdateAsync(location);
+            var updateResponse = await _companyService.UpdateAsync(company);
 
             if (!updateResponse.IsSuccess)
                 return BadRequest(updateResponse);
@@ -95,13 +94,13 @@ namespace VLS.API.Controllers
 
         // DELETE: api/Locations/Delete/5
         [HttpDelete(nameof(Delete) + "/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))] 
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteResponse = await _locationRepo.DeleteAsync(id);
+            var deleteResponse = await _companyRepo.DeleteAsync(id);
 
-            if(!deleteResponse.IsSuccess)
+            if (!deleteResponse.IsSuccess)
                 return BadRequest(deleteResponse);
 
             return Ok(deleteResponse);

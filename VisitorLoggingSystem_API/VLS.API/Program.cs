@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen();
 #endregion
 
 #region SERVICES
+    builder.Services.AddScoped<CompanyService>();
     builder.Services.AddScoped<LocationService>();
 #endregion
 
