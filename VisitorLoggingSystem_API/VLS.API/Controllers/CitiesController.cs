@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VLS.Domain.DbModels;
-using VLS.Domain.ViewModels;
+using System.ComponentModel.DataAnnotations;
 using VLS.Shared.Resources;
 
 namespace VLS.API.Controllers
@@ -21,6 +20,8 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
+            var test = _cityRepo.GetVMById(1);
+
             return Ok(new ActionResponse() { IsSuccess = true, Data = await _cityRepo.GetVMAsync(includeProperties: nameof(Country)) } );
         }
 
@@ -36,6 +37,6 @@ namespace VLS.API.Controllers
                 return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound});
 
             return Ok(new ActionResponse() { IsSuccess = true, Data = city });
-        }
+        }        
     }
 }

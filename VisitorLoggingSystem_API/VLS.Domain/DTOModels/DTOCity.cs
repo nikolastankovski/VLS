@@ -4,8 +4,8 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOCity
     {
-        public int City_ID { get; set; }
-        public int Country_ID { get; set; }
+        public int CityId { get; set; }
+        public int CountryId { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = null!;

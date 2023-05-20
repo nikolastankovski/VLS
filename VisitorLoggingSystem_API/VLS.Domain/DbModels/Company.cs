@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Company))]
     public class Company : BaseEntity
     {
         public Company() 
@@ -9,7 +11,7 @@ namespace VLS.Domain.DbModels
             Visitors = new HashSet<Visitor>();
             Vehicles = new HashSet<Vehicle>();
         }
-        public int Company_ID { get; set; }
+        public int CompanyId { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = null!;

@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Vehicle))]
     public class Vehicle : BaseEntity
     {
         public Vehicle()
         {
             TransactionVehicles = new List<TransactionVehicle>();
         }
-        public long Vehicle_ID { get; set; }
-        public int Company_ID { get; set; }
+        public long VehicleId { get; set; }
+        public int CompanyId { get; set; }
 
         [MaxLength(50)]
         public string RegistrationNumber { get; set; } = null!;

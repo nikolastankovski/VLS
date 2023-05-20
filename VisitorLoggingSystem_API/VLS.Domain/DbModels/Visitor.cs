@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Visitor))]
     public class Visitor : BaseEntity
     {
         public Visitor() 
@@ -12,11 +13,11 @@ namespace VLS.Domain.DbModels
             EntryVisitors = new HashSet<TransactionVehicle>();
             ExitVisitors = new HashSet<TransactionVehicle>();
         }
-        public long Visitor_ID { get; set; }
+        public long VisitorId { get; set; }
 
         [MaxLength(255)]
         public string FullName { get; set; } = null!;
-        public int IDType_ID { get; set; }
+        public int IDTypeId { get; set; }
 
         [MaxLength(50)]
         public string IDNumber { get; set; } = null!;
@@ -24,8 +25,8 @@ namespace VLS.Domain.DbModels
         [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateOnly IDExpirationDate { get; set; }
 
-        public int Country_ID { get; set; }
-        public int? Company_ID { get; set; }
+        public int CountryId { get; set; }
+        public int? CompanyId { get; set; }
 
         public virtual Company? Company { get; set; }
         public virtual Reference? Country { get; set; }

@@ -4,7 +4,7 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOCountry
     {
-        public int Country_ID { get; set; }
+        public int CountryId { get; set; }
 
         [MaxLength(100)]
         public string Name { get; set; } = null!;

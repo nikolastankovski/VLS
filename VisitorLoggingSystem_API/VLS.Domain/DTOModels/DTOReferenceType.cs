@@ -4,7 +4,7 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOReferenceType
     {
-        public int ReferenceType_ID { get; set; }
+        public int ReferenceTypeId { get; set; }
 
         [MaxLength(50)]
         public string Code { get; set; } = null!;

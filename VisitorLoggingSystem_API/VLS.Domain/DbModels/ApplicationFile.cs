@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(ApplicationFile))]
     public class ApplicationFile : BaseEntity
     {
         public ApplicationFile()
         {
             VisitorCourses = new HashSet<VisitorCourse>();
         }
-        public int ApplicationFile_ID { get; set; }
+        public int ApplicationFileId { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = null!;

@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(CourseVersion))]
     public class CourseVersion : BaseEntity
     {
-        public int CourseVersion_ID { get; set; }
-        public int Course_ID { get; set; }
+        public int CourseVersionId { get; set; }
+        public int CourseId { get; set; }
 
         [Column(TypeName = "date"), DataType(DataType.Date)]
         public DateOnly ValidFrom { get; set; }

@@ -4,7 +4,7 @@ namespace VLS.Domain.ViewModels
 {
     public class VMCountry : VMBaseEntity
     {
-        public int Country_ID { get; set; }
+        public int CountryId { get; set; }
 
         [MaxLength(100)]
         public string Name { get; set; } = null!;

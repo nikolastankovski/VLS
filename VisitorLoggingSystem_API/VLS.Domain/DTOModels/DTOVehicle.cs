@@ -5,8 +5,8 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOVehicle
     {
-        public long Vehicle_ID { get; set; }
-        public int Company_ID { get; set; }
+        public long VehicleId { get; set; }
+        public int CompanyId { get; set; }
 
         [MaxLength(50)]
         public string RegistrationNumber { get; set; } = null!;

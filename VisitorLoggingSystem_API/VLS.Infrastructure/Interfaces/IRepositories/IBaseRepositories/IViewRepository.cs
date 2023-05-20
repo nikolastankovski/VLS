@@ -43,12 +43,24 @@ namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
             string includeProperties = ""
         );
         List<TModel> GetAll(bool? isActive = null);
+        List<TViewModel> GetAllVM(bool? isActive = null);
         List<TDTO> GetAllDTO(bool? isActive = null);
+
         Task<List<TModel>> GetAllAsync(bool? isActive = null);
+        Task<List<TViewModel>> GetAllVMAsync(bool? isActive = null);
         Task<List<TDTO>> GetAllDTOAsync(bool? isActive = null);
-        TModel? GetById(object? id);
-        TDTO? GetDTOById(object? id);
-        Task<TModel?> GetByIdAsync(object? id);
-        Task<TDTO?> GetDTOByIdAsync(object? id);
+
+        TModel? GetById(object id);
+        TViewModel? GetVMById(object id);
+        TDTO? GetDTOById(object id);
+
+        Task<TModel?> GetByIdAsync(object id);
+        Task<TViewModel?> GetVMByIdAsync(object id);
+        Task<TDTO?> GetDTOByIdAsync(object id);
+
+        private string GetIncludeProperties() { return string.Empty; }
+    
+        #pragma warning disable CS8603 // Possible null reference return.
+        internal Expression<Func<TModel, bool>> GetWhereClauseByPK(object id) { return default; }
     }
 }

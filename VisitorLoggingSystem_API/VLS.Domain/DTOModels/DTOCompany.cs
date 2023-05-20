@@ -4,7 +4,7 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOCompany
     {
-        public int Company_ID { get; set; }
+        public int CompanyId { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = null!;

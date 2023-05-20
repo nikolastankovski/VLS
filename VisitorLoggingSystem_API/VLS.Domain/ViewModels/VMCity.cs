@@ -4,7 +4,7 @@ namespace VLS.Domain.ViewModels
 {
     public class VMCity : VMBaseEntity
     {
-        public int City_ID { get; set; }
+        public int CityId { get; set; }
         public string Country { get; set; } = null!;
 
         [MaxLength(255)]

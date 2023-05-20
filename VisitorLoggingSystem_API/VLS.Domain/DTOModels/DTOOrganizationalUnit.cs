@@ -4,7 +4,7 @@ namespace VLS.Domain.DTOModels
 {
     public class DTOOrganizationalUnit
     {
-        public int OrganizationalUnit_ID { get; set; }
+        public int OrganizationalUnitId { get; set; }
 
         [MaxLength(50)]
         public string Code { get; set; } = null!;

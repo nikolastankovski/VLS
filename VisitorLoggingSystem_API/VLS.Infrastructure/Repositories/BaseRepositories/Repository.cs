@@ -210,7 +210,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public virtual ActionResponse Delete(object? id)
+        public virtual ActionResponse Delete(object id)
         {
             TModel? entity = GetById(id);
 
@@ -267,7 +267,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public virtual async Task<ActionResponse> DeleteAsync(object? id)
+        public virtual async Task<ActionResponse> DeleteAsync(object id)
         {
             TModel? entity = await GetByIdAsync(id);
 

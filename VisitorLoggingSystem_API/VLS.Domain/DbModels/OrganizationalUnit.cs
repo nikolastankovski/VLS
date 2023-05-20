@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(OrganizationalUnit))]
     public class OrganizationalUnit : BaseEntity
     {
         public OrganizationalUnit()
@@ -9,7 +11,7 @@ namespace VLS.Domain.DbModels
             Employees = new HashSet<Employee>();
             TransactionVisitors = new HashSet<TransactionVisitor>();
         }
-        public int OrganizationalUnit_ID { get; set; }
+        public int OrganizationalUnitId { get; set; }
 
         [MaxLength(50)]
         public string Code { get; set; } = null!;

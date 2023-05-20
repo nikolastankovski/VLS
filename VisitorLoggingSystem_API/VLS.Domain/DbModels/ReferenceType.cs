@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VLS.Domain.DbModels;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(ReferenceType))]
     public class ReferenceType : BaseEntity
     {
         public ReferenceType() 
         {
             References = new HashSet<Reference>();
         }
-        public int ReferenceType_ID { get; set; }
+        public int ReferenceTypeId { get; set; }
 
         [MaxLength(50)]
         public string Code { get; set; } = null!;

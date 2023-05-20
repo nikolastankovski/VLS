@@ -15,15 +15,15 @@ namespace VLS.Infrastructure.Services
             if(entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
-            var location = await _locationRepo.GetByIdAsync(entity.Location_ID);
+            var location = await _locationRepo.GetByIdAsync(entity.LocationId);
 
             if(location == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
 
             location.Name = entity.Name;
-            location.Country_ID = entity.Country_ID;
-            location.City_ID = entity.City_ID;
-            location.Municipality_ID = entity.Municipality_ID;
+            location.CountryId = entity.CountryId;
+            location.CityId = entity.CityId;
+            location.MunicipalityId = entity.MunicipalityId;
 
             return await _locationRepo.UpdateAsync(location);
         }

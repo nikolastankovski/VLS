@@ -63,7 +63,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("ApplicationFileId");
 
-                    b.ToTable("ApplicationFile");
+                    b.ToTable("ApplicationFiles");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.City", b =>
@@ -110,7 +110,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Company", b =>
@@ -156,7 +156,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CompanyId");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Country", b =>
@@ -209,7 +209,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Course", b =>
@@ -247,7 +247,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.CourseVersion", b =>
@@ -286,7 +286,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseVersion");
+                    b.ToTable("CourseVersions");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Employee", b =>
@@ -336,7 +336,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("OrganizationalUnitCode");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Location", b =>
@@ -385,7 +385,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("MunicipalityId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.OrganizationalUnit", b =>
@@ -420,7 +420,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("OrganizationalUnitId");
 
-                    b.ToTable("OrganizationalUnit");
+                    b.ToTable("OrganizationalUnits");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Reference", b =>
@@ -460,7 +460,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("ReferenceTypeId");
 
-                    b.ToTable("Reference");
+                    b.ToTable("References");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.ReferenceType", b =>
@@ -495,7 +495,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("ReferenceTypeId");
 
-                    b.ToTable("ReferenceType");
+                    b.ToTable("ReferenceTypes");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.TransactionVehicle", b =>
@@ -546,7 +546,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("TransactionVehicle");
+                    b.ToTable("TransactionVehicles");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.TransactionVisitor", b =>
@@ -619,7 +619,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("TransactionVisitor");
+                    b.ToTable("TransactionVisitors");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Vehicle", b =>
@@ -661,7 +661,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Vehicle");
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Visitor", b =>
@@ -714,7 +714,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("IDTypeId");
 
-                    b.ToTable("Visitor");
+                    b.ToTable("Visitors");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.VisitorCourse", b =>
@@ -762,7 +762,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("VisitorCourse");
+                    b.ToTable("VisitorCourses");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.City", b =>

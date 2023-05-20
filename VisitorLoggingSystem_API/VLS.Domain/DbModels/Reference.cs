@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VLS.Domain.DbModels;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Reference))]
     public class Reference : BaseEntity
     {
         public Reference() 
@@ -13,8 +15,8 @@ namespace VLS.Domain.DbModels
             Municipalities = new HashSet<Location>();
             TransactionVisitors = new HashSet<TransactionVisitor>();
         }
-        public int Reference_ID { get; set; }
-        public int ReferenceType_ID { get; set; }
+        public int ReferenceId { get; set; }
+        public int ReferenceTypeId { get; set; }
 
         [MaxLength(255)]
         public string Description { get; set; } = null!;

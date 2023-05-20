@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VLS.Domain.DbModels;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Location))]
     public class Location : BaseEntity
     {
         public Location() 
@@ -11,13 +13,13 @@ namespace VLS.Domain.DbModels
             TransactionVisitors = new HashSet<TransactionVisitor>();
             TransactionVehicles = new HashSet<TransactionVehicle>();
         }
-        public int Location_ID { get; set; }
+        public int LocationId { get; set; }
 
         [MaxLength(255)]
         public string Name { get; set; } = null!;
-        public int Country_ID { get; set; }
-        public int? City_ID { get; set; }
-        public int? Municipality_ID { get; set; }
+        public int CountryId { get; set; }
+        public int? CityId { get; set; }
+        public int? MunicipalityId { get; set; }
 
         [MaxLength(255)]
         public string? Address { get; set; }

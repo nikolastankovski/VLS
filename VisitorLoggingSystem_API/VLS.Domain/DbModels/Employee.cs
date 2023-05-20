@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VLS.Domain.DbModels
 {
+    [Table(nameof(Employee))]
     public class Employee : BaseEntity
     {
         public Employee() 
         {
             TransactionVisitors = new HashSet<TransactionVisitor>();
         }
-        public int Employee_ID { get; set; }
+        public int EmployeeId { get; set; }
 
         [MaxLength(50)]
         public string Code { get; set; } = null!;
