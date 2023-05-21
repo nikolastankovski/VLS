@@ -23,7 +23,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            var response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetAllVMAsync() };
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _locationRepo.GetAllVMAsync() };
 
             return Ok(response);
         }
@@ -51,7 +51,7 @@ namespace VLS.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
-            var createResponse = await _locationRepo.CreateAsync(location);
+            ActionResponse createResponse = await _locationRepo.CreateAsync(location);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -68,7 +68,7 @@ namespace VLS.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
-            var createResponse = await _locationRepo.CreateAsync(locations);
+            ActionResponse createResponse = await _locationRepo.CreateAsync(locations);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -85,7 +85,7 @@ namespace VLS.API.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid } );
 
-            var updateResponse = await _locationService.UpdateAsync(location);
+            ActionResponse updateResponse = await _locationService.UpdateAsync(location);
 
             if (!updateResponse.IsSuccess)
                 return BadRequest(updateResponse);
@@ -99,7 +99,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteResponse = await _locationRepo.DeleteAsync(id);
+            ActionResponse deleteResponse = await _locationRepo.DeleteAsync(id);
 
             if(!deleteResponse.IsSuccess)
                 return BadRequest(deleteResponse);

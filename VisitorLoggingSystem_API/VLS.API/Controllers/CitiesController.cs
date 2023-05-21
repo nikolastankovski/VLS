@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using VLS.Shared.Resources;
 
 namespace VLS.API.Controllers
 {
@@ -29,7 +27,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetById(int id)
         {
-            var city = await _cityRepo.GetDTOByIdAsync(id);
+            DTOCity? city = await _cityRepo.GetDTOByIdAsync(id);
 
             if (city is null)
                 return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound});

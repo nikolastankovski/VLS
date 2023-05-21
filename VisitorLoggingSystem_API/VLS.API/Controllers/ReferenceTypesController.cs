@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.DbModels;
-using VLS.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +7,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class ReferenceTypesController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly IReferenceTypeRepository _referenceTypeRepo;
+        private readonly ReferenceTypeService _referenceTypeService;
 
-        public ReferenceTypesController(VLSDbContext context)
+        public ReferenceTypesController(IReferenceTypeRepository referenceTypeRepo, ReferenceTypeService referenceTypeService)
         {
-            _context = context;
+            _referenceTypeRepo = referenceTypeRepo;
+            _referenceTypeService = referenceTypeService;
         }
 
-        // GET: api/ReferenceTypes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReferenceType>>> GetReferenceTypes()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.ReferenceTypes == null)
-          {
-              return NotFound();
-          }
-            return await _context.ReferenceTypes.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _referenceTypeRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/ReferenceTypes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ReferenceType>> GetReferenceType(int id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.ReferenceTypes == null)
-          {
-              return NotFound();
-          }
-            var referenceType = await _context.ReferenceTypes.FindAsync(id);
+            DTOReferenceType? referenceType = await _referenceTypeRepo.GetDTOByIdAsync(id);
 
-            if (referenceType == null)
-            {
-                return NotFound();
-            }
+            if (referenceType is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return referenceType;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = referenceType });
         }
 
-        // PUT: api/ReferenceTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutReferenceType(int id, ReferenceType referenceType)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOReferenceType referenceType)
         {
-            if (id != referenceType.ReferenceTypeId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(referenceType).State = EntityState.Modified;
+            ActionResponse createResponse = await _referenceTypeRepo.CreateAsync(referenceType);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReferenceTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/ReferenceTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<ReferenceType>> PostReferenceType(ReferenceType referenceType)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOReferenceType> referenceTypes)
         {
-          if (_context.ReferenceTypes == null)
-          {
-              return Problem("Entity set 'VLSDbContext.ReferenceTypes'  is null.");
-          }
-            _context.ReferenceTypes.Add(referenceType);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetReferenceType", new { id = referenceType.ReferenceTypeId }, referenceType);
+            ActionResponse createResponse = await _referenceTypeRepo.CreateAsync(referenceTypes);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/ReferenceTypes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReferenceType(int id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOReferenceType referenceType)
         {
-            if (_context.ReferenceTypes == null)
-            {
-                return NotFound();
-            }
-            var referenceType = await _context.ReferenceTypes.FindAsync(id);
-            if (referenceType == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.ReferenceTypes.Remove(referenceType);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _referenceTypeService.UpdateAsync(referenceType);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool ReferenceTypeExists(int id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.ReferenceTypes?.Any(e => e.ReferenceTypeId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _referenceTypeRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

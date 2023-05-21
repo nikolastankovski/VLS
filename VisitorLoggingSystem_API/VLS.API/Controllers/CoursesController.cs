@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.DbModels;
-using VLS.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +7,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly ICourseRepository _courseRepo;
+        private readonly CourseService _courseService;
 
-        public CoursesController(VLSDbContext context)
+        public CoursesController(ICourseRepository courseRepo, CourseService courseService)
         {
-            _context = context;
+            _courseRepo = courseRepo;
+            _courseService = courseService;
         }
 
-        // GET: api/Courses
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.Courses == null)
-          {
-              return NotFound();
-          }
-            return await _context.Courses.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _courseRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/Courses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.Courses == null)
-          {
-              return NotFound();
-          }
-            var course = await _context.Courses.FindAsync(id);
+            DTOCourse? course = await _courseRepo.GetDTOByIdAsync(id);
 
-            if (course == null)
-            {
-                return NotFound();
-            }
+            if (course is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return course;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = course });
         }
 
-        // PUT: api/Courses/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse(int id, Course course)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOCourse course)
         {
-            if (id != course.CourseId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(course).State = EntityState.Modified;
+            ActionResponse createResponse = await _courseRepo.CreateAsync(course);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/Courses
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Course>> PostCourse(Course course)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOCourse> courses)
         {
-          if (_context.Courses == null)
-          {
-              return Problem("Entity set 'VLSDbContext.Courses'  is null.");
-          }
-            _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetCourse", new { id = course.CourseId }, course);
+            ActionResponse createResponse = await _courseRepo.CreateAsync(courses);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/Courses/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourse(int id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOCourse company)
         {
-            if (_context.Courses == null)
-            {
-                return NotFound();
-            }
-            var course = await _context.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _courseService.UpdateAsync(company);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool CourseExists(int id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.Courses?.Any(e => e.CourseId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _courseRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

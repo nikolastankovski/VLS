@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VLS.Domain.DbModels;
 using VLS.Infrastructure.Data;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +15,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class VisitorsController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly IVisitorRepository _visitorRepo;
+        private readonly VisitorService _visitorService;
 
-        public VisitorsController(VLSDbContext context)
+        public VisitorsController(IVisitorRepository referenceRepo, VisitorService referenceService)
         {
-            _context = context;
+            _visitorRepo = referenceRepo;
+            _visitorService = referenceService;
         }
 
-        // GET: api/Visitors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Visitor>>> GetVisitors()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.Visitors == null)
-          {
-              return NotFound();
-          }
-            return await _context.Visitors.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _visitorRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/Visitors/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Visitor>> GetVisitor(long id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.Visitors == null)
-          {
-              return NotFound();
-          }
-            var visitor = await _context.Visitors.FindAsync(id);
+            DTOVisitor? visitor = await _visitorRepo.GetDTOByIdAsync(id);
 
-            if (visitor == null)
-            {
-                return NotFound();
-            }
+            if (visitor is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return visitor;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = visitor });
         }
 
-        // PUT: api/Visitors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVisitor(long id, Visitor visitor)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOVisitor vehicle)
         {
-            if (id != visitor.VisitorId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(visitor).State = EntityState.Modified;
+            ActionResponse createResponse = await _visitorRepo.CreateAsync(vehicle);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VisitorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/Visitors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Visitor>> PostVisitor(Visitor visitor)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOVisitor> visitors)
         {
-          if (_context.Visitors == null)
-          {
-              return Problem("Entity set 'VLSDbContext.Visitors'  is null.");
-          }
-            _context.Visitors.Add(visitor);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetVisitor", new { id = visitor.VisitorId }, visitor);
+            ActionResponse createResponse = await _visitorRepo.CreateAsync(visitors);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/Visitors/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVisitor(long id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOVisitor visitor)
         {
-            if (_context.Visitors == null)
-            {
-                return NotFound();
-            }
-            var visitor = await _context.Visitors.FindAsync(id);
-            if (visitor == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Visitors.Remove(visitor);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _visitorService.UpdateAsync(visitor);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool VisitorExists(long id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.Visitors?.Any(e => e.VisitorId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _visitorRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

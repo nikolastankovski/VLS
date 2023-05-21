@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.DbModels;
-using VLS.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +7,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class OrganizationalUnitsController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly IOrganizationalUnitRepository _orgUnitRepo;
+        private readonly OrganizationalUnitService _orgUnitService;
 
-        public OrganizationalUnitsController(VLSDbContext context)
+        public OrganizationalUnitsController(IOrganizationalUnitRepository orgUnitRepo, OrganizationalUnitService orgUnitService)
         {
-            _context = context;
+            _orgUnitRepo = orgUnitRepo;
+            _orgUnitService = orgUnitService;
         }
 
-        // GET: api/OrganizationalUnits
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrganizationalUnit>>> GetOrganizationalUnits()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.OrganizationalUnits == null)
-          {
-              return NotFound();
-          }
-            return await _context.OrganizationalUnits.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _orgUnitRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/OrganizationalUnits/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrganizationalUnit>> GetOrganizationalUnit(int id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.OrganizationalUnits == null)
-          {
-              return NotFound();
-          }
-            var organizationalUnit = await _context.OrganizationalUnits.FindAsync(id);
+            DTOOrganizationalUnit? orgUnit = await _orgUnitRepo.GetDTOByIdAsync(id);
 
-            if (organizationalUnit == null)
-            {
-                return NotFound();
-            }
+            if (orgUnit is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return organizationalUnit;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = orgUnit });
         }
 
-        // PUT: api/OrganizationalUnits/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrganizationalUnit(int id, OrganizationalUnit organizationalUnit)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOOrganizationalUnit orgUnit)
         {
-            if (id != organizationalUnit.OrganizationalUnitId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(organizationalUnit).State = EntityState.Modified;
+            ActionResponse createResponse = await _orgUnitRepo.CreateAsync(orgUnit);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrganizationalUnitExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/OrganizationalUnits
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<OrganizationalUnit>> PostOrganizationalUnit(OrganizationalUnit organizationalUnit)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOOrganizationalUnit> orgUnits)
         {
-          if (_context.OrganizationalUnits == null)
-          {
-              return Problem("Entity set 'VLSDbContext.OrganizationalUnits'  is null.");
-          }
-            _context.OrganizationalUnits.Add(organizationalUnit);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetOrganizationalUnit", new { id = organizationalUnit.OrganizationalUnitId }, organizationalUnit);
+            ActionResponse createResponse = await _orgUnitRepo.CreateAsync(orgUnits);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/OrganizationalUnits/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrganizationalUnit(int id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOOrganizationalUnit orgUnit)
         {
-            if (_context.OrganizationalUnits == null)
-            {
-                return NotFound();
-            }
-            var organizationalUnit = await _context.OrganizationalUnits.FindAsync(id);
-            if (organizationalUnit == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.OrganizationalUnits.Remove(organizationalUnit);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _orgUnitService.UpdateAsync(orgUnit);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool OrganizationalUnitExists(int id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.OrganizationalUnits?.Any(e => e.OrganizationalUnitId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _orgUnitRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

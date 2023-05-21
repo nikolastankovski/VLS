@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.DbModels;
-using VLS.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +7,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class TransactionVisitorsController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly ITransactionVisitorRepository _transVisitorRepo;
+        private readonly TransactionVisitorService _transVisitorService;
 
-        public TransactionVisitorsController(VLSDbContext context)
+        public TransactionVisitorsController(ITransactionVisitorRepository transVisitorRepo, TransactionVisitorService transVisitorService)
         {
-            _context = context;
+            _transVisitorRepo = transVisitorRepo;
+            _transVisitorService = transVisitorService;
         }
 
-        // GET: api/TransactionVisitors
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionVisitor>>> GetTransactionVisitors()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.TransactionVisitors == null)
-          {
-              return NotFound();
-          }
-            return await _context.TransactionVisitors.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _transVisitorRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/TransactionVisitors/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TransactionVisitor>> GetTransactionVisitor(long id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.TransactionVisitors == null)
-          {
-              return NotFound();
-          }
-            var transactionVisitor = await _context.TransactionVisitors.FindAsync(id);
+            DTOTransactionVisitor? transVisitor = await _transVisitorRepo.GetDTOByIdAsync(id);
 
-            if (transactionVisitor == null)
-            {
-                return NotFound();
-            }
+            if (transVisitor is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return transactionVisitor;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = transVisitor });
         }
 
-        // PUT: api/TransactionVisitors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTransactionVisitor(long id, TransactionVisitor transactionVisitor)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOTransactionVisitor transVisitor)
         {
-            if (id != transactionVisitor.TransactionVisitorId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(transactionVisitor).State = EntityState.Modified;
+            ActionResponse createResponse = await _transVisitorRepo.CreateAsync(transVisitor);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TransactionVisitorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/TransactionVisitors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<TransactionVisitor>> PostTransactionVisitor(TransactionVisitor transactionVisitor)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOTransactionVisitor> transVisitors)
         {
-          if (_context.TransactionVisitors == null)
-          {
-              return Problem("Entity set 'VLSDbContext.TransactionVisitors'  is null.");
-          }
-            _context.TransactionVisitors.Add(transactionVisitor);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetTransactionVisitor", new { id = transactionVisitor.TransactionVisitorId }, transactionVisitor);
+            ActionResponse createResponse = await _transVisitorRepo.CreateAsync(transVisitors);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/TransactionVisitors/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTransactionVisitor(long id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOTransactionVisitor transVisitor)
         {
-            if (_context.TransactionVisitors == null)
-            {
-                return NotFound();
-            }
-            var transactionVisitor = await _context.TransactionVisitors.FindAsync(id);
-            if (transactionVisitor == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.TransactionVisitors.Remove(transactionVisitor);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _transVisitorService.UpdateAsync(transVisitor);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool TransactionVisitorExists(long id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.TransactionVisitors?.Any(e => e.TransactionVisitorId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _transVisitorRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

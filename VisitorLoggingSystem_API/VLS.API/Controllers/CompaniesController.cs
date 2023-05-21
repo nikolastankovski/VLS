@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VLS.Infrastructure.Services;
-using VLS.Shared.Resources;
 
 namespace VLS.API.Controllers
 {
@@ -22,7 +21,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            var response = new ActionResponse() { IsSuccess = true, Data = await _companyRepo.GetAllVMAsync() };
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _companyRepo.GetAllVMAsync() };
 
             return Ok(response);
         }
@@ -50,7 +49,7 @@ namespace VLS.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var createResponse = await _companyRepo.CreateAsync(company);
+            ActionResponse createResponse = await _companyRepo.CreateAsync(company);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -67,7 +66,7 @@ namespace VLS.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var createResponse = await _companyRepo.CreateAsync(companies);
+            ActionResponse createResponse = await _companyRepo.CreateAsync(companies);
 
             if (!createResponse.IsSuccess)
                 return BadRequest(createResponse);
@@ -84,7 +83,7 @@ namespace VLS.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            var updateResponse = await _companyService.UpdateAsync(company);
+            ActionResponse updateResponse = await _companyService.UpdateAsync(company);
 
             if (!updateResponse.IsSuccess)
                 return BadRequest(updateResponse);
@@ -98,7 +97,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteResponse = await _companyRepo.DeleteAsync(id);
+            ActionResponse deleteResponse = await _companyRepo.DeleteAsync(id);
 
             if (!deleteResponse.IsSuccess)
                 return BadRequest(deleteResponse);

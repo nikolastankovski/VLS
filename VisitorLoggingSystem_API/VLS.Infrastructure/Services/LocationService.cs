@@ -15,7 +15,7 @@ namespace VLS.Infrastructure.Services
             if(entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
-            var location = await _locationRepo.GetByIdAsync(entity.LocationId);
+            Location? location = await _locationRepo.GetByIdAsync(entity.LocationId);
 
             if(location == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound };

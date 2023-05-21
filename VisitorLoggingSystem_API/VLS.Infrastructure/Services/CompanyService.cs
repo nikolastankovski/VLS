@@ -21,18 +21,18 @@ namespace VLS.Infrastructure.Services
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
-            var location = await _companyRepo.GetByIdAsync(entity.CompanyId);
+            Company? company = await _companyRepo.GetByIdAsync(entity.CompanyId);
 
-            if (location == null)
+            if (company == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
 
-            location.Name = entity.Name;
-            location.Address = entity.Address;
-            location.Email = entity.Email;
-            location.PhoneNumber = entity.PhoneNumber;
-            location.IDNumber = entity.IDNumber;
+            company.Name = entity.Name;
+            company.Address = entity.Address;
+            company.Email = entity.Email;
+            company.PhoneNumber = entity.PhoneNumber;
+            company.IDNumber = entity.IDNumber;
 
-            return await _companyRepo.UpdateAsync(location);
+            return await _companyRepo.UpdateAsync(company);
         }
     }
 }

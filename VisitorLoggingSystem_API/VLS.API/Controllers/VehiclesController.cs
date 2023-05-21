@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VLS.Domain.DbModels;
-using VLS.Infrastructure.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
 {
@@ -14,111 +7,102 @@ namespace VLS.API.Controllers
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        private readonly VLSDbContext _context;
+        private readonly IVehicleRepository _vehicleRepo;
+        private readonly VehicleService _vehicleService;
 
-        public VehiclesController(VLSDbContext context)
+        public VehiclesController(IVehicleRepository referenceRepo, VehicleService referenceService)
         {
-            _context = context;
+            _vehicleRepo = referenceRepo;
+            _vehicleService = referenceService;
         }
 
-        // GET: api/Vehicles
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
+        // GET: api/Locations/GetAll
+        [HttpGet(nameof(GetAll))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetAll()
         {
-          if (_context.Vehicles == null)
-          {
-              return NotFound();
-          }
-            return await _context.Vehicles.ToListAsync();
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _vehicleRepo.GetAllVMAsync() };
+
+            return Ok(response);
         }
 
-        // GET: api/Vehicles/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Vehicle>> GetVehicle(long id)
+        // GET: api/Locations/GetById/5
+        [HttpGet(nameof(GetById) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> GetById(int id)
         {
-          if (_context.Vehicles == null)
-          {
-              return NotFound();
-          }
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            DTOVehicle? vehicle = await _vehicleRepo.GetDTOByIdAsync(id);
 
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            if (vehicle is null)
+                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
 
-            return vehicle;
+            return Ok(new ActionResponse() { IsSuccess = true, Data = vehicle });
         }
 
-        // PUT: api/Vehicles/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicle(long id, Vehicle vehicle)
+        // POST: api/Locations/Create
+        [HttpPost(nameof(Create))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Create(DTOVehicle vehicle)
         {
-            if (id != vehicle.VehicleId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Entry(vehicle).State = EntityState.Modified;
+            ActionResponse createResponse = await _vehicleRepo.CreateAsync(vehicle);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VehicleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
 
-            return NoContent();
+            return Ok(createResponse);
         }
 
-        // POST: api/Vehicles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Vehicle>> PostVehicle(Vehicle vehicle)
+        // POST: api/Locations/BulkCreate
+        [HttpPost(nameof(BulkCreate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> BulkCreate(List<DTOVehicle> vehicles)
         {
-          if (_context.Vehicles == null)
-          {
-              return Problem("Entity set 'VLSDbContext.Vehicles'  is null.");
-          }
-            _context.Vehicles.Add(vehicle);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            return CreatedAtAction("GetVehicle", new { id = vehicle.VehicleId }, vehicle);
+            ActionResponse createResponse = await _vehicleRepo.CreateAsync(vehicles);
+
+            if (!createResponse.IsSuccess)
+                return BadRequest(createResponse);
+
+            return Ok(createResponse);
         }
 
-        // DELETE: api/Vehicles/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(long id)
+        // PUT: api/Locations/Update
+        [HttpPut(nameof(Update))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Update(DTOVehicle vehicle)
         {
-            if (_context.Vehicles == null)
-            {
-                return NotFound();
-            }
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
 
-            _context.Vehicles.Remove(vehicle);
-            await _context.SaveChangesAsync();
+            ActionResponse updateResponse = await _vehicleService.UpdateAsync(vehicle);
 
-            return NoContent();
+            if (!updateResponse.IsSuccess)
+                return BadRequest(updateResponse);
+
+            return Ok(updateResponse);
         }
 
-        private bool VehicleExists(long id)
+        // DELETE: api/Locations/Delete/5
+        [HttpDelete(nameof(Delete) + "/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
+        public async Task<IActionResult> Delete(int id)
         {
-            return (_context.Vehicles?.Any(e => e.VehicleId == id)).GetValueOrDefault();
+            ActionResponse deleteResponse = await _vehicleRepo.DeleteAsync(id);
+
+            if (!deleteResponse.IsSuccess)
+                return BadRequest(deleteResponse);
+
+            return Ok(deleteResponse);
         }
     }
 }

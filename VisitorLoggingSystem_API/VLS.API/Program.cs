@@ -34,7 +34,16 @@ builder.Services.AddSwaggerGen();
 
 #region SERVICES
     builder.Services.AddScoped<CompanyService>();
+    builder.Services.AddScoped<CourseService>();
+    builder.Services.AddScoped<EmployeeService>();
     builder.Services.AddScoped<LocationService>();
+    builder.Services.AddScoped<OrganizationalUnitService>();
+    builder.Services.AddScoped<ReferenceService>();
+    builder.Services.AddScoped<ReferenceTypeService>();
+    builder.Services.AddScoped<TransactionVehicleService>();
+    builder.Services.AddScoped<TransactionVisitorService>();
+    builder.Services.AddScoped<VehicleService>();
+    builder.Services.AddScoped<VisitorService>();
 #endregion
 
 var app = builder.Build();
