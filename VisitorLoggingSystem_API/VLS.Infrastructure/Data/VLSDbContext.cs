@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
+using System.Reflection.Emit;
+using VLS.Domain.UserManagementModels;
 
 namespace VLS.Infrastructure.Data
 {
-    public partial class VLSDbContext : DbContext
+    public partial class VLSDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, IdentityUserClaim<int>, ApplicationUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public VLSDbContext() { }
         public VLSDbContext(DbContextOptions<VLSDbContext> options)
@@ -43,6 +47,16 @@ namespace VLS.Infrastructure.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>().ToTable("ApplicationUser");
+            builder.Entity<ApplicationRole>().ToTable("ApplicationRole");
+            builder.Entity<ApplicationUserRole>().ToTable("ApplicationUserRole");
+            builder.Entity<IdentityUserClaim<int>>().ToTable("ApplicationUserClaim");
+            builder.Entity<IdentityUserLogin<int>>().ToTable("ApplicationUserLogin");
+            builder.Entity<IdentityUserToken<int>>().ToTable("ApplicationUserToken");
+            builder.Entity<IdentityRoleClaim<int>>().ToTable("ApplicationRoleClaim");
+
             builder.Entity<ApplicationFile>()
                 .HasKey(x => x.ApplicationFileId);
 

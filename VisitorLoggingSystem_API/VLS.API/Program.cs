@@ -2,6 +2,8 @@
 using VLS.Infrastructure.Repositories;
 using VLS.Shared;
 using VLS.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
+using VLS.Domain.UserManagementModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<VLSDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
+    
+    options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+})
+.AddEntityFrameworkStores<VLSDbContext>()
+.AddDefaultTokenProviders();
 
 builder.Services.AddAutoMapper(Helper.GetAutoMapperProfilesFromAllAssemblies().ToArray());
 builder.Services.AddControllers();
@@ -46,6 +67,16 @@ builder.Services.AddSwaggerGen();
     builder.Services.AddScoped<VisitorService>();
 #endregion
 
+builder.Services.AddCors(o =>
+{
+    o.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,6 +90,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

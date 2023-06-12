@@ -12,8 +12,8 @@ using VLS.Infrastructure.Data;
 namespace VLS.Infrastructure.Migrations
 {
     [DbContext(typeof(VLSDbContext))]
-    [Migration("20230520161854_RenameColumns")]
-    partial class RenameColumns
+    [Migration("20230612214046_Identity")]
+    partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,94 @@ namespace VLS.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ApplicationRoleClaim", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApplicationUserClaim", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApplicationUserLogin", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("ApplicationUserToken", (string)null);
+                });
 
             modelBuilder.Entity("VLS.Domain.DbModels.ApplicationFile", b =>
                 {
@@ -65,7 +153,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("ApplicationFileId");
 
-                    b.ToTable("ApplicationFiles");
+                    b.ToTable("ApplicationFile");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.City", b =>
@@ -112,7 +200,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Company", b =>
@@ -158,7 +246,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CompanyId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Country", b =>
@@ -211,7 +299,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Course", b =>
@@ -249,7 +337,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.CourseVersion", b =>
@@ -288,7 +376,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseVersions");
+                    b.ToTable("CourseVersion");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Employee", b =>
@@ -338,7 +426,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("OrganizationalUnitCode");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Location", b =>
@@ -387,7 +475,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("MunicipalityId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.OrganizationalUnit", b =>
@@ -422,7 +510,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("OrganizationalUnitId");
 
-                    b.ToTable("OrganizationalUnits");
+                    b.ToTable("OrganizationalUnit");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Reference", b =>
@@ -462,7 +550,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("ReferenceTypeId");
 
-                    b.ToTable("References");
+                    b.ToTable("Reference");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.ReferenceType", b =>
@@ -497,7 +585,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasKey("ReferenceTypeId");
 
-                    b.ToTable("ReferenceTypes");
+                    b.ToTable("ReferenceType");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.TransactionVehicle", b =>
@@ -548,7 +636,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("TransactionVehicles");
+                    b.ToTable("TransactionVehicle");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.TransactionVisitor", b =>
@@ -621,7 +709,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("TransactionVisitors");
+                    b.ToTable("TransactionVisitor");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Vehicle", b =>
@@ -663,7 +751,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicle");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.Visitor", b =>
@@ -716,7 +804,7 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("IDTypeId");
 
-                    b.ToTable("Visitors");
+                    b.ToTable("Visitor");
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.VisitorCourse", b =>
@@ -764,7 +852,201 @@ namespace VLS.Infrastructure.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("VisitorCourses");
+                    b.ToTable("VisitorCourse");
+                });
+
+            modelBuilder.Entity("VLS.Domain.UserManagementModels.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("ApplicationRole", (string)null);
+                });
+
+            modelBuilder.Entity("VLS.Domain.UserManagementModels.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<DateTime>("LastPasswordChange")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("PasswordChangePeriodInMonths")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("ApplicationUser", (string)null);
+                });
+
+            modelBuilder.Entity("VLS.Domain.UserManagementModels.ApplicationUserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2(3)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ApplicationUserRole", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.City", b =>
@@ -983,6 +1265,21 @@ namespace VLS.Infrastructure.Migrations
                     b.Navigation("SignatureFile");
 
                     b.Navigation("Visitor");
+                });
+
+            modelBuilder.Entity("VLS.Domain.UserManagementModels.ApplicationUserRole", b =>
+                {
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VLS.Domain.UserManagementModels.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VLS.Domain.DbModels.ApplicationFile", b =>

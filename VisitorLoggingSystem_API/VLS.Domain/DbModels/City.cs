@@ -6,6 +6,7 @@ namespace VLS.Domain.DbModels
     [Table(nameof(City))]
     public class City : BaseEntity
     {
+        [Key]
         public int CityId { get; set; }
         public int CountryId { get; set; }
 
