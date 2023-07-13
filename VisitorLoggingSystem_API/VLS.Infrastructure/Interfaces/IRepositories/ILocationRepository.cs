@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface ILocationRepository : IRepository<Location, VMLocation, DTOLocation>
+    public interface ILocationRepository : IBaseRepository<Location>
     {
     }
 }

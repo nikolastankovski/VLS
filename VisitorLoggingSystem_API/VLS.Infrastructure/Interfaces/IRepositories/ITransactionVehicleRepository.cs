@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface ITransactionVehicleRepository : IRepository<TransactionVehicle, VMTransactionVehicle, DTOTransactionVehicle>
+    public interface ITransactionVehicleRepository : IBaseRepository<TransactionVehicle>
     {
     }
 }

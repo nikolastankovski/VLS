@@ -1,17 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using System.Linq.Expressions;
-
-namespace VLS.Infrastructure.Repositories
+﻿namespace VLS.Infrastructure.Repositories
 {
-    public class CountryRepository : ViewRepository<Country, VMCountry, DTOCountry>, ICountryRepository
+    public class CountryRepository : BaseRepository<Country>, ICountryRepository
     {
-        public CountryRepository(VLSDbContext context, ILogger<Country> logger, IMapper mapper) : base(context, logger, mapper)
+        public CountryRepository(VLSDbContext context) : base(context)
         {
-        }
-        internal override Expression<Func<Country, bool>> GetWhereClauseByPK(object id)
-        {
-            return x => x.CountryId == Convert.ToInt32(id);
         }
     }
 }

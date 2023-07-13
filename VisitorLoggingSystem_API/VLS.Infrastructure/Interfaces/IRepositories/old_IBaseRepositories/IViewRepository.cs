@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
+namespace VLS.Infrastructure.Interfaces.IRepositories.old_IBaseRepositories
 {
     public interface IViewRepository<TModel, TViewModel, TDTO> 
         where TModel : BaseEntity

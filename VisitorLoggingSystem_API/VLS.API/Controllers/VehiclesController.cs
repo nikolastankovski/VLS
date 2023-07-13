@@ -21,7 +21,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _vehicleRepo.GetAllVMAsync() };
+            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _vehicleRepo.GetAllAsync() };
 
             return Ok(response);
         }
@@ -32,7 +32,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetById(int id)
         {
-            DTOVehicle? vehicle = await _vehicleRepo.GetDTOByIdAsync(id);
+            Vehicle? vehicle = await _vehicleRepo.GetByIdAsync(id);
 
             if (vehicle is null)
                 return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
@@ -44,7 +44,7 @@ namespace VLS.API.Controllers
         [HttpPost(nameof(Create))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> Create(DTOVehicle vehicle)
+        public async Task<IActionResult> Create(Vehicle vehicle)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
@@ -61,7 +61,7 @@ namespace VLS.API.Controllers
         [HttpPost(nameof(BulkCreate))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> BulkCreate(List<DTOVehicle> vehicles)
+        public async Task<IActionResult> BulkCreate(List<Vehicle> vehicles)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });
@@ -78,7 +78,7 @@ namespace VLS.API.Controllers
         [HttpPut(nameof(Update))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
-        public async Task<IActionResult> Update(DTOVehicle vehicle)
+        public async Task<IActionResult> Update(Vehicle vehicle)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ActionResponse() { IsSuccess = false, Message = Resources.ModelStateInvalid });

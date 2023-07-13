@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface ICountryRepository : IViewRepository<Country, VMCountry, DTOCountry>
+    public interface ICountryRepository : IBaseRepository<Country>
     {
     }
 }

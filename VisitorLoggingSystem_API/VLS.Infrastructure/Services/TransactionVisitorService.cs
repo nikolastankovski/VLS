@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _transVisitorRepo = transVisitorRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOTransactionVisitor entity)
+        public async Task<ActionResponse> UpdateAsync(TransactionVisitor entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

@@ -1,25 +1,27 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories;
 using VLS.Shared.Resources;
 
 namespace VLS.Infrastructure.Repositories.BaseRepositories
 {
-    public class Repository<TModel, TViewModel, TDTO> : ViewRepository<TModel, TViewModel, TDTO>, IRepository<TModel, TViewModel, TDTO> 
-        where TModel : BaseEntity
-        where TViewModel : VMBaseEntity
+    public class BaseRepository<TModel> : IBaseRepository<TModel> where TModel : BaseEntity
     {
         private readonly VLSDbContext _context;
-        internal new DbSet<TModel> _entity;
-        protected new readonly ILogger<TModel> _logger;
-        private readonly IMapper _mapper;
+        private new DbSet<TModel> _entity;
+        //protected new readonly ILogger<TModel> _logger;
+        //private readonly IMapper _mapper;
 
-        public Repository(VLSDbContext context, ILogger<TModel> logger, IMapper mapper) : base(context, logger, mapper)
+        public BaseRepository(
+            VLSDbContext context
+            //, ILogger<TModel> logger 
+            //, IMapper mapper
+        )
         {
             _context = context;
             _entity = _context.Set<TModel>();
-            _logger = logger;
-            _mapper = mapper;
+            //_logger = logger;
+            //_mapper = mapper;
         }
 
         public virtual ActionResponse Create(TModel entity)
@@ -32,29 +34,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 entity.CreatedBy = 1;
                 entity.CreatedOn = DateTime.Now;
                 _entity.Add(entity);
-                _context.SaveChanges();
-
-                //return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate, Data = entity.GetType()?.GetProperty($"{nameof(TModel)}_ID")?.GetValue(entity, null) };
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
-            }
-            catch (Exception e)
-            {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
-            }
-        }
-
-        public virtual ActionResponse Create(TDTO entity)
-        {
-            if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
-
-            var dbEntity = _mapper.Map<TModel>(entity);
-
-            try
-            {
-                dbEntity.CreatedBy = 1;
-                dbEntity.CreatedOn = DateTime.Now;
-                _entity.Add(dbEntity);
                 _context.SaveChanges();
 
                 return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
@@ -90,32 +69,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public virtual ActionResponse Create(List<TDTO> entities)
-        {
-            entities.TryGetNonEnumeratedCount(out int count);
-
-            if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
-
-            var dbEntities = entities.Select(e => _mapper.Map<TModel>(e)).ToList();
-            try
-            {
-                dbEntities.ForEach(x =>
-                {
-                    x.CreatedBy = 1;
-                    x.CreatedOn = DateTime.Now;
-                });
-                _entity.AddRange(dbEntities);
-                _context.SaveChanges();
-
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
-            }
-            catch (Exception e)
-            {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
-            }
-        }
-
         public virtual async Task<ActionResponse> CreateAsync(TModel entity)
         {
             if (entity == null)
@@ -126,28 +79,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 entity.CreatedBy = 1;
                 entity.CreatedOn = DateTime.Now;
                 await _entity.AddAsync(entity);
-                await _context.SaveChangesAsync();
-
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
-            }
-            catch (Exception e)
-            {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
-            }
-        }
-
-        public virtual async Task<ActionResponse> CreateAsync(TDTO entity)
-        {
-            if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
-
-            var dbEntity = _mapper.Map<TModel>(entity);
-
-            try
-            {
-                dbEntity.CreatedBy = 1;
-                dbEntity.CreatedOn = DateTime.Now;
-                await _entity.AddAsync(dbEntity);
                 await _context.SaveChangesAsync();
 
                 return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
@@ -183,33 +114,6 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public virtual async Task<ActionResponse> CreateAsync(List<TDTO> entities)
-        {
-            entities.TryGetNonEnumeratedCount(out int count);
-
-            if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
-
-            var dbEntities = entities.Select(e => _mapper.Map<TModel>(e)).ToList();
-
-            try
-            {
-                dbEntities.ForEach(x =>
-                {
-                    x.CreatedBy = 1;
-                    x.CreatedOn = DateTime.Now;
-                });
-                await _entity.AddRangeAsync(dbEntities);
-                await _context.SaveChangesAsync();
-
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
-            }
-            catch (Exception e)
-            {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
-            }
-        }
-
         public virtual ActionResponse Delete(object id)
         {
             TModel? entity = GetById(id);
@@ -230,7 +134,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public ActionResponse Delete(List<object> ids)
+        public virtual ActionResponse Delete(List<object> ids)
         {
             List<TModel> entities = new List<TModel>();
             List<object> missingEntities = new List<object>();
@@ -324,7 +228,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public ActionResponse Update(TModel entity)
+        public virtual ActionResponse Update(TModel entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -344,7 +248,7 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             }
         }
 
-        public ActionResponse Update(List<TModel> entities)
+        public virtual ActionResponse Update(List<TModel> entities)
         {
             entities.TryGetNonEnumeratedCount(out int count);
 
@@ -412,6 +316,84 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             {
                 return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
+        }
+
+        public virtual List<TModel> Get(Expression<Func<TModel, bool>>? filter = null, Expression<Func<TModel, int, TModel>>? select = null, Func<IQueryable<TModel>, IOrderedQueryable<TModel>>? orderBy = null, string includeProperties = "")
+        {
+            IQueryable<TModel> query = _entity;
+            List<TModel> entities = new List<TModel>();
+
+            query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            if (select != null)
+                query = query.Select(select);
+
+            if (orderBy != null)
+                entities = orderBy(query).ToList();
+            else
+                entities = query.ToList();
+
+            _context.ChangeTracker.Clear();
+
+            return entities;
+        }
+
+        public virtual async Task<List<TModel>> GetAsync(Expression<Func<TModel, bool>>? filter = null, Expression<Func<TModel, int, TModel>>? select = null, Func<IQueryable<TModel>, IOrderedQueryable<TModel>>? orderBy = null, string includeProperties = "")
+        {
+            IQueryable<TModel> query = _entity;
+            List<TModel> entities = new List<TModel>();
+
+            query = includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            if (select != null)
+                query = query.Select(select);
+
+            if (orderBy != null)
+                entities = await orderBy(query).ToListAsync();
+            else
+                entities = await query.ToListAsync();
+
+            _context.ChangeTracker.Clear();
+
+            return entities;
+        }
+
+        public virtual List<TModel> GetAll(bool? isActive = null)
+        {
+            List<TModel> entities = _entity.Where(x => isActive == null).ToList();
+            _context.ChangeTracker.Clear();
+
+            return entities;
+        }
+
+        public virtual async Task<List<TModel>> GetAllAsync(bool? isActive = null)
+        {
+            List<TModel> entities = await _entity.ToListAsync();
+            _context.ChangeTracker.Clear();
+
+            return entities;
+        }
+
+        public virtual TModel? GetById(object id)
+        {
+            TModel? entity = _entity.Find(id);
+            _context.ChangeTracker.Clear();
+
+            return entity;
+        }
+
+        public virtual async Task<TModel?> GetByIdAsync(object id)
+        {
+            TModel? entity = await _entity.FindAsync(id);
+            _context.ChangeTracker.Clear();
+
+            return entity;
         }
     }
 }

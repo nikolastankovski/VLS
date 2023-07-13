@@ -16,7 +16,7 @@ namespace VLS.Infrastructure.Services
             _companyRepo = companyRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOCompany entity)
+        public async Task<ActionResponse> UpdateAsync(Company entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

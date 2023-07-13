@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _referenceTypeRepo = referenceRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOReferenceType entity)
+        public async Task<ActionResponse> UpdateAsync(ReferenceType entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

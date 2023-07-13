@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _employeeRepo = employeeRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOEmployee entity)
+        public async Task<ActionResponse> UpdateAsync(Employee entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

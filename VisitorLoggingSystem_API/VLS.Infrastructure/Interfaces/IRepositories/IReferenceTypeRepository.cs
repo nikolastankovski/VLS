@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface IReferenceTypeRepository : IRepository<ReferenceType, VMReferenceType, DTOReferenceType>
+    public interface IReferenceTypeRepository : IBaseRepository<ReferenceType>
     {
     }
 }

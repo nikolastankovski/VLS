@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
+using VLS.Infrastructure.Interfaces.IRepositories.old_IBaseRepositories;
 
-namespace VLS.Infrastructure.Repositories.BaseRepositories
+namespace VLS.Infrastructure.Repositories.old_BaseRepositories
 {
     public class ViewRepository<TModel, TViewModel, TDTO> : IViewRepository<TModel, TViewModel, TDTO>
         where TModel : BaseEntity

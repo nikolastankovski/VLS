@@ -1,4 +1,4 @@
-﻿namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
+﻿namespace VLS.Infrastructure.Interfaces.IRepositories.old_IBaseRepositories
 {
     public interface IRepository<TModel, TViewModel, TDTO> : IViewRepository<TModel, TViewModel, TDTO> 
         where TModel : BaseEntity

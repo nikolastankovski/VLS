@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _vehicleRepo = vehicleRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOVehicle entity)
+        public async Task<ActionResponse> UpdateAsync(Vehicle entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

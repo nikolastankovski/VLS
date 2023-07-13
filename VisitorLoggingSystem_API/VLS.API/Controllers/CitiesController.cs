@@ -18,7 +18,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(new ActionResponse() { IsSuccess = true, Data = await _cityRepo.GetAllVMAsync() });
+            return Ok(new ActionResponse() { IsSuccess = true, Data = await _cityRepo.GetAllAsync() });
         }
 
         // GET: api/Cities/GetById/1
@@ -27,7 +27,7 @@ namespace VLS.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
         public async Task<IActionResult> GetById(int id)
         {
-            DTOCity? city = await _cityRepo.GetDTOByIdAsync(id);
+            City? city = await _cityRepo.GetByIdAsync(id);
 
             if (city is null)
                 return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound});

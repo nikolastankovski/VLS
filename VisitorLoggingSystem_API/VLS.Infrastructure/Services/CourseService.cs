@@ -15,7 +15,7 @@ namespace VLS.Infrastructure.Services
             _courseRepo = courseRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOCourse entity)
+        public async Task<ActionResponse> UpdateAsync(Course entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

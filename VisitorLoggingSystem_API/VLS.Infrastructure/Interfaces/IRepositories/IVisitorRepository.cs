@@ -1,6 +1,6 @@
 ﻿namespace VLS.Infrastructure.Interfaces.IRepositories
 {
-    public interface IVisitorRepository : IRepository<Visitor, VMVisitor, DTOVisitor>
+    public interface IVisitorRepository : IBaseRepository<Visitor>
     {
     }
 }

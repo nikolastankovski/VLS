@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _locationRepo = locationRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOLocation entity)
+        public async Task<ActionResponse> UpdateAsync(Location entity)
         {
             if(entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

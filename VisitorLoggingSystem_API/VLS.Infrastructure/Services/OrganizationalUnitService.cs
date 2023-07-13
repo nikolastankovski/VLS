@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _orgUnitRepo = orgUnit;
         }
 
-        public async Task<ActionResponse> UpdateAsync(DTOOrganizationalUnit entity)
+        public async Task<ActionResponse> UpdateAsync(OrganizationalUnit entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };

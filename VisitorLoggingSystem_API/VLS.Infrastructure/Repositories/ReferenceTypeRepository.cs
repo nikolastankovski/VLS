@@ -1,17 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using System.Linq.Expressions;
-
-namespace VLS.Infrastructure.Repositories
+﻿namespace VLS.Infrastructure.Repositories
 {
-    public class ReferenceTypeRepository : Repository<ReferenceType, VMReferenceType, DTOReferenceType>, IReferenceTypeRepository
+    public class ReferenceTypeRepository : BaseRepository<ReferenceType>, IReferenceTypeRepository
     {
-        public ReferenceTypeRepository(VLSDbContext context, ILogger<ReferenceType> logger, IMapper mapper) : base(context, logger, mapper)
+        public ReferenceTypeRepository(VLSDbContext context) : base(context)
         {
-        }
-        internal override Expression<Func<ReferenceType, bool>> GetWhereClauseByPK(object id)
-        {
-            return x => x.ReferenceTypeId == Convert.ToInt32(id);
         }
     }
 }
