@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VLS.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using VLS.Infrastructure.Data;
 namespace VLS.Infrastructure.Migrations
 {
     [DbContext(typeof(VLSDbContext))]
-    partial class VLSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230728183316_AddLoggingTable")]
+    partial class AddLoggingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,11 +164,6 @@ namespace VLS.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ApplicationLogId"), 1L, 1);
 
-                    b.Property<string>("Application")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -179,11 +176,6 @@ namespace VLS.Infrastructure.Migrations
 
                     b.Property<DateTime>("LogDateTime")
                         .HasColumnType("datetime2(3)");
-
-                    b.Property<string>("Source")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("ApplicationLogId");
 

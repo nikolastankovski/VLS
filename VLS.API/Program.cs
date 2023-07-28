@@ -65,6 +65,7 @@ builder.Services.AddSwaggerGen();
     builder.Services.AddScoped<TransactionVisitorService>();
     builder.Services.AddScoped<VehicleService>();
     builder.Services.AddScoped<VisitorService>();
+    builder.Services.AddScoped<LoggingService>();
 #endregion
 
 builder.Services.AddCors(o =>

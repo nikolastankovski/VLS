@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Newtonsoft.Json;
-using System.Net.Http.Json;
-using VLS.Domain.CustomModels;
 using VLS.Web.Helpers.API;
 
 namespace VLS.Web.Pages.pgCompany
@@ -10,18 +7,22 @@ namespace VLS.Web.Pages.pgCompany
     {
         [Inject]
         private IBaseHttpClient httpClient { get; set; }
+        public string EmptyGridText { get; set; } = "Loading";
 
         public List<Company> companies = new List<Company>();
 
 
         protected async override Task OnInitializedAsync()
         {
-            ActionResponse? response = await httpClient.GetAsync<ActionResponse>("Companies/GetAll");
+            var response = await httpClient.GetAsync<List<Company>>("Companies/GetAll");
 
-            if (response.IsSuccess && !string.IsNullOrEmpty(response.Data.ToString()))
+            if (response == null || !response.Any())
             {
-                companies = JsonConvert.DeserializeObject<List<Company>>(response.Data.ToString());
+                EmptyGridText = "No records found";
+                return;
             }
+
+            companies = response;
         }
     }
 }

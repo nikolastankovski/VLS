@@ -17,6 +17,7 @@ namespace VLS.Infrastructure.Data
         }
 
         public virtual DbSet<ApplicationFile> ApplicationFiles { get; set; } = null!;
+        public virtual DbSet<ApplicationLog> ApplicationLogs { get; set; } = null!;
         public virtual DbSet<City> Cities { get; set; } = null!;
         public virtual DbSet<Company> Companies { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
@@ -59,6 +60,13 @@ namespace VLS.Infrastructure.Data
 
             builder.Entity<ApplicationFile>()
                 .HasKey(x => x.ApplicationFileId);
+
+            builder.Entity<ApplicationLog>()
+                .HasKey(x => x.ApplicationLogId);
+
+            builder.Entity<ApplicationLog>()
+                .Property(x => x.IsSuccess)
+                .HasDefaultValue(false);
 
             builder.Entity<City>()
                 .HasKey(x => x.CityId);

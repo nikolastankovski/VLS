@@ -9,8 +9,22 @@
 
 @if (companies != null)
 {
-    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                    Data="@companies" TItem="Company" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+    <RadzenDataGrid 
+        AllowFiltering="true" 
+        AllowColumnResize="true" 
+        AllowAlternatingRows="false" 
+        FilterMode="FilterMode.Advanced" 
+        AllowSorting="true" 
+        PageSize="5" 
+        AllowPaging="true" 
+        PagerHorizontalAlign="HorizontalAlign.Left" 
+        ShowPagingSummary="true"
+        Data="@companies" 
+        TItem="Company" 
+        ColumnWidth="300px"
+        LogicalFilterOperator="LogicalFilterOperator.Or"
+        EmptyText="@EmptyGridText"
+    >
         <Columns>
             <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.CompanyId)" Filterable="false" Title="ID" Frozen="true" Width="80px" TextAlign="TextAlign.Center" />
             <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.Name)" Title="@Resources.ObjectName" Frozen="true" Width="160px" />
