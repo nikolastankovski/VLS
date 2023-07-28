@@ -61,6 +61,69 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адреса.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Компании.
+        /// </summary>
+        public static string Companies {
+            get {
+                return ResourceManager.GetString("Companies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Компанија.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нова компанија.
+        /// </summary>
+        public static string Company_Create {
+            get {
+                return ResourceManager.GetString("Company_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Избриши компанија.
+        /// </summary>
+        public static string Company_Delete {
+            get {
+                return ResourceManager.GetString("Company_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Промени компанија.
+        /// </summary>
+        public static string Company_Edit {
+            get {
+                return ResourceManager.GetString("Company_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Емаил.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Записот не постои!.
         /// </summary>
         public static string EntityNotFound {
@@ -93,6 +156,33 @@ namespace VLS.Shared.Resources {
         public static string ModelStateInvalid {
             get {
                 return ResourceManager.GetString("ModelStateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ЕДБ.
+        /// </summary>
+        public static string ObjectIdNumber {
+            get {
+                return ResourceManager.GetString("ObjectIdNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Назив.
+        /// </summary>
+        public static string ObjectName {
+            get {
+                return ResourceManager.GetString("ObjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Телефон.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
             }
         }
         

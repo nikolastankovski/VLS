@@ -1,0 +1,30 @@
+﻿@attribute [Route(CompanyRoutes.Create)]
+@using VLS.Web.Components
+@using Radzen.Blazor
+@using Radzen
+
+<PageTitle>@Resources.Company_Create</PageTitle>
+<h3>@Resources.Company_Create</h3>
+
+<RadzenLabel Text="Some text" Component="CheckBox1" />
+<RadzenTextBox Name="Test"
+   Placeholder="test@test.com"
+   @bind-Value="@company.Name"
+>
+</RadzenTextBox>
+
+
+<RadzenTextBox Name="Test"
+               Placeholder="test@test.com"
+               @bind-Value="@company.Name">
+</RadzenTextBox>
+@code {
+    Company company = new Company()
+    {
+        Name = "Test123"
+    };
+
+
+
+
+}

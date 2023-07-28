@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLS.API", "VLS.API\VLS.API.csproj", "{228152EC-6C6A-422A-A878-B9EDEB652009}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.API", "VLS.API\VLS.API.csproj", "{228152EC-6C6A-422A-A878-B9EDEB652009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLS.Domain", "VLS.Domain\VLS.Domain.csproj", "{DA776A20-38FA-4031-B1F5-92228DC018BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.Domain", "VLS.Domain\VLS.Domain.csproj", "{DA776A20-38FA-4031-B1F5-92228DC018BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLS.Infrastructure", "VLS.Infrastructure\VLS.Infrastructure.csproj", "{84C3530A-D12D-4250-9624-B72DF8E6C6D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.Infrastructure", "VLS.Infrastructure\VLS.Infrastructure.csproj", "{84C3530A-D12D-4250-9624-B72DF8E6C6D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLS.Shared", "VLS.Shared\VLS.Shared.csproj", "{767E4F3F-5361-4F61-87DC-CE10F0D47D40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.Shared", "VLS.Shared\VLS.Shared.csproj", "{767E4F3F-5361-4F61-87DC-CE10F0D47D40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.Web", "VLS.Web\VLS.Web.csproj", "{FC6BDDF2-2773-40C1-8C25-2FFA7ED2AA80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Radzen.Blazor", "..\..\radzen-blazor\Radzen.Blazor\Radzen.Blazor.csproj", "{FB8C8FF4-A0D4-4AE0-A61F-0CF4EBFB95BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,13 @@ Global
 		{767E4F3F-5361-4F61-87DC-CE10F0D47D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{767E4F3F-5361-4F61-87DC-CE10F0D47D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{767E4F3F-5361-4F61-87DC-CE10F0D47D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6BDDF2-2773-40C1-8C25-2FFA7ED2AA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6BDDF2-2773-40C1-8C25-2FFA7ED2AA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6BDDF2-2773-40C1-8C25-2FFA7ED2AA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6BDDF2-2773-40C1-8C25-2FFA7ED2AA80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8C8FF4-A0D4-4AE0-A61F-0CF4EBFB95BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8C8FF4-A0D4-4AE0-A61F-0CF4EBFB95BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8C8FF4-A0D4-4AE0-A61F-0CF4EBFB95BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
