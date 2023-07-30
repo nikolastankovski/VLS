@@ -221,5 +221,14 @@ namespace VLS.Shared.Resources {
                 return ResourceManager.GetString("SuccessUpdate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occured!.
+        /// </summary>
+        public static string UnexpectedErrorOccured {
+            get {
+                return ResourceManager.GetString("UnexpectedErrorOccured", resourceCulture);
+            }
+        }
     }
 }

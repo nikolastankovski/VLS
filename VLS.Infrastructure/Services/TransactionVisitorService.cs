@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _transVisitorRepo = transVisitorRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(TransactionVisitor entity)
+        /*public async Task<ActionResponse> UpdateAsync(TransactionVisitor entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -33,6 +33,6 @@ namespace VLS.Infrastructure.Services
             transVisitor.IncidentDescription = entity.IncidentDescription;
 
             return await _transVisitorRepo.UpdateAsync(transVisitor);
-        }
+        }*/
     }
 }

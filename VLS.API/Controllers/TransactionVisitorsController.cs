@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VLS.Infrastructure.Constants;
 using VLS.Infrastructure.Services;
 
 namespace VLS.API.Controllers
@@ -9,39 +10,77 @@ namespace VLS.API.Controllers
     {
         private readonly ITransactionVisitorRepository _transVisitorRepo;
         private readonly TransactionVisitorService _transVisitorService;
+        private readonly LoggingService _logService;
 
-        public TransactionVisitorsController(ITransactionVisitorRepository transVisitorRepo, TransactionVisitorService transVisitorService)
+        public TransactionVisitorsController(ITransactionVisitorRepository transVisitorRepo, TransactionVisitorService transVisitorService, LoggingService logService)
         {
             _transVisitorRepo = transVisitorRepo;
             _transVisitorService = transVisitorService;
+            _logService = logService;
         }
 
         // GET: api/Locations/GetAll
         [HttpGet(nameof(GetAll))]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TransactionVisitor>))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(string))]
         public async Task<IActionResult> GetAll()
         {
-            ActionResponse response = new ActionResponse() { IsSuccess = true, Data = await _transVisitorRepo.GetAllAsync() };
+            try
+            {
+                return Ok(await _transVisitorRepo.GetAllAsync());
+            }
+            catch (Exception e)
+            {
+                ApplicationLog log = new ApplicationLog()
+                {
+                    Application = nameof(Applications.VLS_API),
+                    Source = $"{Request.Path}{Request.QueryString}",
+                    IsSuccess = false,
+                    Description = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}",
+                    LogDateTime = DateTime.Now
+                };
 
-            return Ok(response);
+                await _logService.LogAsync(log);
+
+                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, Resources.UnexpectedErrorOccured);
+            }
         }
 
         // GET: api/Locations/GetById/5
         [HttpGet(nameof(GetById) + "/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ActionResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TransactionVisitor))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(string))]
         public async Task<IActionResult> GetById(int id)
         {
-            TransactionVisitor? transVisitor = await _transVisitorRepo.GetByIdAsync(id);
+            try
+            {
+                TransactionVisitor? entity = await _transVisitorRepo.GetByIdAsync(id);
 
-            if (transVisitor is null)
-                return NotFound(new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound });
+                if (entity is null)
+                    return NotFound(Resources.EntityNotFound);
 
-            return Ok(new ActionResponse() { IsSuccess = true, Data = transVisitor });
+                return Ok(entity);
+            }
+            catch (Exception e)
+            {
+                ApplicationLog log = new ApplicationLog()
+                {
+                    Application = nameof(Applications.VLS_API),
+                    Source = $"{Request.Path}{Request.QueryString}",
+                    IsSuccess = false,
+                    Description = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}",
+                    LogDateTime = DateTime.Now
+                };
+
+                await _logService.LogAsync(log);
+
+                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, Resources.UnexpectedErrorOccured);
+            }
         }
 
         // POST: api/Locations/Create
-        [HttpPost(nameof(Create))]
+        /*[HttpPost(nameof(Create))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Create(TransactionVisitor transVisitor)
@@ -55,10 +94,10 @@ namespace VLS.API.Controllers
                 return BadRequest(createResponse);
 
             return Ok(createResponse);
-        }
+        }*/
 
         // POST: api/Locations/BulkCreate
-        [HttpPost(nameof(BulkCreate))]
+        /*[HttpPost(nameof(BulkCreate))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> BulkCreate(List<TransactionVisitor> transVisitors)
@@ -72,10 +111,10 @@ namespace VLS.API.Controllers
                 return BadRequest(createResponse);
 
             return Ok(createResponse);
-        }
+        }*/
 
         // PUT: api/Locations/Update
-        [HttpPut(nameof(Update))]
+        /*[HttpPut(nameof(Update))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Update(TransactionVisitor transVisitor)
@@ -89,10 +128,10 @@ namespace VLS.API.Controllers
                 return BadRequest(updateResponse);
 
             return Ok(updateResponse);
-        }
+        }*/
 
         // DELETE: api/Locations/Delete/5
-        [HttpDelete(nameof(Delete) + "/{id}")]
+        /*[HttpDelete(nameof(Delete) + "/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
@@ -103,6 +142,6 @@ namespace VLS.API.Controllers
                 return BadRequest(deleteResponse);
 
             return Ok(deleteResponse);
-        }
+        }*/
     }
 }

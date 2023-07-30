@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using VLS.Domain.CustomModels;
 
 namespace VLS.Web.Helpers.API
 {
@@ -31,21 +32,26 @@ namespace VLS.Web.Helpers.API
             _client.BaseAddress = domain;
         }
 
-        public async Task<T?> GetAsync<T>(string url)
+        public async Task<ActionResponse<T>> GetAsync<T>(string url)
         {
-            //url = $"{_client.BaseAddress}{url}";
-
             using (var response = await _client.GetAsync(url))
             {
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception($"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}");
+                    return new ActionResponse<T>()
+                    {
+                        IsSuccess = false,
+                        //Message = $"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}"
+                        Message = responseBody
+                    };
 
-                if (string.IsNullOrEmpty(responseBody))
-                    return default;
-
-                return JsonConvert.DeserializeObject<T>(responseBody);
+                return new ActionResponse<T>()
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = string.IsNullOrEmpty(responseBody) ? default : JsonConvert.DeserializeObject<T>(responseBody)
+                };
             }
         }
 

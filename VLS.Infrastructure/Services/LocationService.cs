@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _locationRepo = locationRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(Location entity)
+        /*public async Task<ActionResponse> UpdateAsync(Location entity)
         {
             if(entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -26,6 +26,6 @@ namespace VLS.Infrastructure.Services
             location.MunicipalityId = entity.MunicipalityId;
 
             return await _locationRepo.UpdateAsync(location);
-        }
+        }*/
     }
 }

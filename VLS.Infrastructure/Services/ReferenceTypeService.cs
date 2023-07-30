@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _referenceTypeRepo = referenceRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(ReferenceType entity)
+        /*public async Task<ActionResponse> UpdateAsync(ReferenceType entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -24,6 +24,6 @@ namespace VLS.Infrastructure.Services
             reference.Code = entity.Code;
 
             return await _referenceTypeRepo.UpdateAsync(reference);
-        }
+        }*/
     }
 }

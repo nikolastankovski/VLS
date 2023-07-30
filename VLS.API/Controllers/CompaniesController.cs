@@ -43,9 +43,8 @@ namespace VLS.API.Controllers
 
                 await _logService.LogAsync(log);
 
-                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, "Unexpected error occured!");
+                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, Resources.UnexpectedErrorOccured);
             }
-
         }
 
         // GET: api/Locations/GetById/5
@@ -57,12 +56,12 @@ namespace VLS.API.Controllers
         {
             try
             {
-                Company? company = await _companyRepo.GetByIdAsync(id);
+                Company? entity = await _companyRepo.GetByIdAsync(id);
 
-                if (company is null)
+                if (entity is null)
                     return NotFound(Resources.EntityNotFound);
 
-                return Ok(company);
+                return Ok(entity);
             }
             catch (Exception e)
             {
@@ -77,13 +76,12 @@ namespace VLS.API.Controllers
 
                 await _logService.LogAsync(log);
 
-                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, "Unexpected error occured!");
-            }
-            
+                return StatusCode(statusCode: StatusCodes.Status500InternalServerError, Resources.UnexpectedErrorOccured);
+            }  
         }
 
         // POST: api/Locations/Create
-        [HttpPost(nameof(Create))]
+        /*[HttpPost(nameof(Create))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Create(Company company)
@@ -97,10 +95,10 @@ namespace VLS.API.Controllers
                 return BadRequest(createResponse);
 
             return Ok(createResponse);
-        }
+        }*/
 
         // POST: api/Locations/BulkCreate
-        [HttpPost(nameof(BulkCreate))]
+        /*[HttpPost(nameof(BulkCreate))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> BulkCreate(List<Company> companies)
@@ -114,10 +112,10 @@ namespace VLS.API.Controllers
                 return BadRequest(createResponse);
 
             return Ok(createResponse);
-        }
+        }*/
 
         // PUT: api/Locations/Update
-        [HttpPut(nameof(Update))]
+        /*[HttpPut(nameof(Update))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Update(Company company)
@@ -131,10 +129,10 @@ namespace VLS.API.Controllers
                 return BadRequest(updateResponse);
 
             return Ok(updateResponse);
-        }
+        }*/
 
         // DELETE: api/Locations/Delete/5
-        [HttpDelete(nameof(Delete) + "/{id}")]
+        /*[HttpDelete(nameof(Delete) + "/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ActionResponse))]
         public async Task<IActionResult> Delete(int id)
@@ -145,6 +143,6 @@ namespace VLS.API.Controllers
                 return BadRequest(deleteResponse);
 
             return Ok(deleteResponse);
-        }
+        }*/
     }
 }

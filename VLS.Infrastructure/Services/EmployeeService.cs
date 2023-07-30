@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _employeeRepo = employeeRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(Employee entity)
+        /*public async Task<ActionResponse> UpdateAsync(Employee entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -27,6 +27,6 @@ namespace VLS.Infrastructure.Services
             employee.IsActive = entity.IsActive;
 
             return await _employeeRepo.UpdateAsync(employee);
-        }
+        }*/
     }
 }

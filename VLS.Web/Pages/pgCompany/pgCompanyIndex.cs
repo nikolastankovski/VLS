@@ -16,13 +16,15 @@ namespace VLS.Web.Pages.pgCompany
         {
             var response = await httpClient.GetAsync<List<Company>>("Companies/GetAll");
 
-            if (response == null || !response.Any())
+            if (response.IsSuccess)
             {
-                EmptyGridText = "No records found";
-                return;
+                if(response.Data is null)
+                {
+                    EmptyGridText = "No records found";
+                    return;
+                }
+                companies = response.Data;
             }
-
-            companies = response;
         }
     }
 }

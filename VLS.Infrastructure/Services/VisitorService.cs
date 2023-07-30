@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _visitorRepo = visitorRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(Visitor entity)
+        /*public async Task<ActionResponse> UpdateAsync(Visitor entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -28,6 +28,6 @@ namespace VLS.Infrastructure.Services
             visitor.CompanyId = entity.CompanyId;
 
             return await _visitorRepo.UpdateAsync(visitor);
-        }
+        }*/
     }
 }

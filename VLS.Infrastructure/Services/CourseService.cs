@@ -15,7 +15,7 @@ namespace VLS.Infrastructure.Services
             _courseRepo = courseRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(Course entity)
+        /*public async Task<ActionResponse> UpdateAsync(Course entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -30,6 +30,6 @@ namespace VLS.Infrastructure.Services
             course.IsMandatory = entity.IsMandatory;
 
             return await _courseRepo.UpdateAsync(course);
-        }
+        }*/
     }
 }

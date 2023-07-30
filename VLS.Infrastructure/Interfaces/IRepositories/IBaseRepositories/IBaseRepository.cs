@@ -4,19 +4,19 @@ namespace VLS.Infrastructure.Interfaces.IRepositories.IBaseRepositories
 {
     public interface IBaseRepository<TModel> : IReadRepository<TModel>
     {
-        ActionResponse Create(TModel entity);
-        ActionResponse Create(List<TModel> entities);
-        Task<ActionResponse> CreateAsync(TModel entity);
-        Task<ActionResponse> CreateAsync(List<TModel> entities);
+        CRUDResponse Create(TModel entity);
+        CRUDResponse Create(List<TModel> entities);
+        Task<CRUDResponse> CreateAsync(TModel entity);
+        Task<CRUDResponse> CreateAsync(List<TModel> entities);
 
-        ActionResponse Delete(object id);
-        ActionResponse Delete(List<object> ids);
-        Task<ActionResponse> DeleteAsync(object id);
-        Task<ActionResponse> DeleteAsync(List<object> ids);
+        CRUDResponse Delete(object id);
+        CRUDResponse Delete(List<object> ids);
+        Task<CRUDResponse> DeleteAsync(object id);
+        Task<CRUDResponse> DeleteAsync(List<object> ids);
 
-        ActionResponse Update(TModel entity);
-        ActionResponse Update(List<TModel> entities);
-        Task<ActionResponse> UpdateAsync(TModel entity);
-        Task<ActionResponse> UpdateAsync(List<TModel> entities);
+        CRUDResponse Update(TModel entity);
+        CRUDResponse Update(List<TModel> entities);
+        Task<CRUDResponse> UpdateAsync(TModel entity);
+        Task<CRUDResponse> UpdateAsync(List<TModel> entities);
     }
 }

@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.16" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\radzen-blazor\Radzen.Blazor\Radzen.Blazor.csproj" />
-    <ProjectReference Include="..\VLS.Infrastructure\VLS.Infrastructure.csproj" />
+    <ProjectReference Include="..\VLS.Domain\VLS.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

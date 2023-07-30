@@ -24,10 +24,10 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             //_mapper = mapper;
         }
 
-        public virtual ActionResponse Create(TModel entity)
+        public virtual CRUDResponse Create(TModel entity)
         {
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -36,20 +36,20 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.Add(entity);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual ActionResponse Create(List<TModel> entities)
+        public virtual CRUDResponse Create(List<TModel> entities)
         {
             entities.TryGetNonEnumeratedCount(out int count);
 
             if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -61,18 +61,18 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.AddRange(entities);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> CreateAsync(TModel entity)
+        public virtual async Task<CRUDResponse> CreateAsync(TModel entity)
         {
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -81,20 +81,20 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 await _entity.AddAsync(entity);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> CreateAsync(List<TModel> entities)
+        public virtual async Task<CRUDResponse> CreateAsync(List<TModel> entities)
         {
             entities.TryGetNonEnumeratedCount(out int count);
 
             if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -106,35 +106,35 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 await _entity.AddRangeAsync(entities);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessCreate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual ActionResponse Delete(object id)
+        public virtual CRUDResponse Delete(object id)
         {
             TModel? entity = GetById(id);
 
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
 
             try
             {
                 _entity.Remove(entity);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual ActionResponse Delete(List<object> ids)
+        public virtual CRUDResponse Delete(List<object> ids)
         {
             List<TModel> entities = new List<TModel>();
             List<object> missingEntities = new List<object>();
@@ -155,43 +155,43 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             missingEntities.TryGetNonEnumeratedCount(out int count);
 
             if (count > 0)
-                return new ActionResponse() { IsSuccess = false, Message = $"Error! Missing entities: {missingEntities.ToString()}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Error! Missing entities: {missingEntities.ToString()}" };
 
             try
             {
                 _entity.RemoveRange(entities);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
 
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> DeleteAsync(object id)
+        public virtual async Task<CRUDResponse> DeleteAsync(object id)
         {
             TModel? entity = await GetByIdAsync(id);
 
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNotFound };
 
             try
             {
                 _entity.Remove(entity);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> DeleteAsync(List<object> ids)
+        public virtual async Task<CRUDResponse> DeleteAsync(List<object> ids)
         {
             List<TModel> entities = new List<TModel>();
             List<object> missingEntities = new List<object>();
@@ -212,26 +212,26 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
             missingEntities.TryGetNonEnumeratedCount(out int count);
 
             if (count > 0)
-                return new ActionResponse() { IsSuccess = false, Message = $"Error! Missing entities: {missingEntities.ToString()}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Error! Missing entities: {missingEntities.ToString()}" };
 
             try
             {
                 _entity.RemoveRange(entities);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessDelete };
 
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual ActionResponse Update(TModel entity)
+        public virtual CRUDResponse Update(TModel entity)
         {
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -240,20 +240,20 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.Update(entity);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual ActionResponse Update(List<TModel> entities)
+        public virtual CRUDResponse Update(List<TModel> entities)
         {
             entities.TryGetNonEnumeratedCount(out int count);
 
             if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -265,18 +265,18 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.UpdateRange(entities);
                 _context.SaveChanges();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> UpdateAsync(TModel entity)
+        public virtual async Task<CRUDResponse> UpdateAsync(TModel entity)
         {
             if (entity == null)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -285,20 +285,20 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.Update(entity);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.SuccessUpdate };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 
-        public virtual async Task<ActionResponse> UpdateAsync(List<TModel> entities)
+        public virtual async Task<CRUDResponse> UpdateAsync(List<TModel> entities)
         {
             entities.TryGetNonEnumeratedCount(out int count);
 
             if (entities == null || count == 0)
-                return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
+                return new CRUDResponse() { IsSuccess = false, Message = Resources.EntityNull };
 
             try
             {
@@ -310,11 +310,11 @@ namespace VLS.Infrastructure.Repositories.BaseRepositories
                 _entity.UpdateRange(entities);
                 await _context.SaveChangesAsync();
 
-                return new ActionResponse() { IsSuccess = true, Message = Resources.Success };
+                return new CRUDResponse() { IsSuccess = true, Message = Resources.Success };
             }
             catch (Exception e)
             {
-                return new ActionResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
+                return new CRUDResponse() { IsSuccess = false, Message = $"Exception: {(e.InnerException == null ? e.Message : e.InnerException.Message)}" };
             }
         }
 

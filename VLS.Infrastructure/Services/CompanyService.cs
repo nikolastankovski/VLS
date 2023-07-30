@@ -16,7 +16,7 @@ namespace VLS.Infrastructure.Services
             _companyRepo = companyRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(Company entity)
+        /*public async Task<ActionResponse> UpdateAsync(Company entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -33,6 +33,6 @@ namespace VLS.Infrastructure.Services
             company.IDNumber = entity.IDNumber;
 
             return await _companyRepo.UpdateAsync(company);
-        }
+        }*/
     }
 }

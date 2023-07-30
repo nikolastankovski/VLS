@@ -10,7 +10,7 @@ namespace VLS.Infrastructure.Services
             _transVehicleRepo = transVehicleRepo;
         }
 
-        public async Task<ActionResponse> UpdateAsync(TransactionVehicle entity)
+        /*public async Task<ActionResponse> UpdateAsync(TransactionVehicle entity)
         {
             if (entity == null)
                 return new ActionResponse() { IsSuccess = false, Message = Resources.EntityNull };
@@ -28,6 +28,6 @@ namespace VLS.Infrastructure.Services
             transVehicle.ExitVisitorId = transVehicle.ExitVisitorId;
 
             return await _transVehicleRepo.UpdateAsync(transVehicle);
-        }
+        }*/
     }
 }

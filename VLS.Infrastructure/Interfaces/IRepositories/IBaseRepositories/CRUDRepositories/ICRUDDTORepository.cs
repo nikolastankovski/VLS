@@ -2,9 +2,9 @@
 {
     public interface ICRUDDTORepository<TDTOModel>
     {
-        ActionResponse Create(TDTOModel entity);
-        ActionResponse Create(List<TDTOModel> entities);
-        Task<ActionResponse> CreateAsync(TDTOModel entity);
-        Task<ActionResponse> CreateAsync(List<TDTOModel> entities);
+        CRUDResponse Create(TDTOModel entity);
+        CRUDResponse Create(List<TDTOModel> entities);
+        Task<CRUDResponse> CreateAsync(TDTOModel entity);
+        Task<CRUDResponse> CreateAsync(List<TDTOModel> entities);
     }
 }

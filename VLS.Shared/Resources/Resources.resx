@@ -171,4 +171,7 @@
   <data name="SuccessUpdate" xml:space="preserve">
     <value>Успешна промена!</value>
   </data>
+  <data name="UnexpectedErrorOccured" xml:space="preserve">
+    <value>Unexpected error occured!</value>
+  </data>
 </root>
