@@ -1,17 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<RadzenLayout>
+    <Header OnToggleSideBar="@IsExpandedSideBar"></Header>
+    <SideBar IsExpandedSideBar="@isSideBarExpanded"></SideBar>
+    <RadzenBody>
+        <main id="main-container">
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+    </RadzenBody>
+    @*<RadzenFooter>
+        Footer
+    </RadzenFooter>*@
+</RadzenLayout>
+
+@code {
+    private bool isSideBarExpanded = false;
+
+    private void IsExpandedSideBar(bool isExpanded)
+    {
+        isSideBarExpanded = isExpanded;
+    }
+}

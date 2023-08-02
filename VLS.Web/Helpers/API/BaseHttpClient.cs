@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.WebUtilities;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
+﻿using Newtonsoft.Json;
 using System.Text;
 using VLS.Domain.CustomModels;
 
@@ -42,7 +39,6 @@ namespace VLS.Web.Helpers.API
                     return new ActionResponse<T>()
                     {
                         IsSuccess = false,
-                        //Message = $"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}"
                         Message = responseBody
                     };
 
@@ -55,7 +51,7 @@ namespace VLS.Web.Helpers.API
             }
         }
 
-        public async Task<Stream?> GetStreamAsync(string url)
+        public async Task<ActionResponse<Stream>> GetStreamAsync(string url)
         {
             using (var response = await _client.GetAsync(url))
             {
@@ -64,14 +60,24 @@ namespace VLS.Web.Helpers.API
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorMsg = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {errorMsg}");
+
+                    return new ActionResponse<Stream>()
+                    {
+                        IsSuccess = false,
+                        Message = errorMsg
+                    };
                 }
 
-                return responseBody;
+                return new ActionResponse<Stream>()
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = responseBody
+                };
             }
         }
 
-        public async Task<T?> PostAsync<T>(string url, string body, string? contentType = "application/json")
+        public async Task<ActionResponse<T>> PostAsync<T>(string url, string body, string? contentType = "application/json")
         {
             HttpContent content = new StringContent(content: body, encoding: Encoding.UTF8, mediaType: contentType);
 
@@ -80,16 +86,22 @@ namespace VLS.Web.Helpers.API
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception($"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}");
+                    return new ActionResponse<T>()
+                    {
+                        IsSuccess = false,
+                        Message = responseBody
+                    };
 
-                if (string.IsNullOrEmpty(responseBody))
-                    return default;
-
-                return JsonConvert.DeserializeObject<T>(responseBody);
+                return new ActionResponse<T>()
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = string.IsNullOrEmpty(responseBody) ? default : JsonConvert.DeserializeObject<T>(responseBody)
+                };
             }
         }
 
-        public async Task<T?> PutAsync<T>(string url, string body, string? contentType = "application/json")
+        public async Task<ActionResponse<T>> PutAsync<T>(string url, string body, string? contentType = "application/json")
         {
             HttpContent content = new StringContent(content: body, encoding: Encoding.UTF8, mediaType: contentType);
 
@@ -98,28 +110,40 @@ namespace VLS.Web.Helpers.API
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception($"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}");
+                    return new ActionResponse<T>()
+                    {
+                        IsSuccess = false,
+                        Message = responseBody
+                    };
 
-                if (string.IsNullOrEmpty(responseBody))
-                    return default;
-
-                return JsonConvert.DeserializeObject<T>(responseBody);
+                return new ActionResponse<T>()
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = string.IsNullOrEmpty(responseBody) ? default : JsonConvert.DeserializeObject<T>(responseBody)
+                };
             }
         }
 
-        public async Task<T?> DeleteAsync<T>(string url)
+        public async Task<ActionResponse<T>> DeleteAsync<T>(string url)
         {
             using (var response = await _client.DeleteAsync(url))
             {
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception($"Request failed. Url: {url}, Status Code: {response.StatusCode}, Response: {responseBody}");
+                    return new ActionResponse<T>()
+                    {
+                        IsSuccess = false,
+                        Message = responseBody
+                    };
 
-                if (string.IsNullOrEmpty(responseBody))
-                    return default;
-
-                return JsonConvert.DeserializeObject<T>(responseBody);
+                return new ActionResponse<T>()
+                {
+                    IsSuccess = true,
+                    Message = string.Empty,
+                    Data = string.IsNullOrEmpty(responseBody) ? default : JsonConvert.DeserializeObject<T>(responseBody)
+                };
             }
         }
 

@@ -5,25 +5,61 @@
 <PageTitle>@Resources.Company_Create</PageTitle>
 <h3>@Resources.Company_Create</h3>
 
-<RadzenLabel Text="Some text" Component="CheckBox1" />
-<RadzenTextBox Name="Test"
-   Placeholder="test@test.com"
-   @bind-Value="@company.Name"
->
-</RadzenTextBox>
+<RadzenTemplateForm TItem="Company" Data=@model Submit=@OnSubmit InvalidSubmit=@OnInvalidSubmit>
+    <RadzenStack Gap="1rem" Class="rz-p-sm-12">
+        <RadzenFormField Text="@Resources.ObjectName" Variant="@variant">
+            <ChildContent>
+                <RadzenTextBox Name="@Resources.ObjectName" @bind-Value=@model.Name />
+            </ChildContent>
+            <Helper>
+                <RadzenRequiredValidator Component="FirstName" Text="First name is required." />
+            </Helper>
+        </RadzenFormField>
+        <RadzenFormField Text="@Resources.Address" Variant="@variant">
+            <ChildContent>
+                <RadzenTextBox Name="@Resources.Address" @bind-Value=@model.Address />
+            </ChildContent>
+            <Helper>
+                <RadzenRequiredValidator Component="LastName" Text="Last name is required." />
+            </Helper>
+        </RadzenFormField>
+        <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+    </RadzenStack>
+</RadzenTemplateForm>
 
+ @code {
+    Variant variant = Variant.Outlined;
 
-<RadzenTextBox Name="Test"
-               Placeholder="test@test.com"
-               @bind-Value="@company.Name">
-</RadzenTextBox>
-@code {
-    Company company = new Company()
+    Company model = new Company();
+
+    [Parameter]
+    public int companyId { get; set; }
+
+    [Inject]
+    private IBaseHttpClient httpClient { get; set; }
+
+    protected async override Task OnInitializedAsync()
     {
-        Name = "Test123"
-    };
+        var response = await httpClient.GetAsync<Company>($"Companies/GetById/{companyId}");
 
+        if (response.IsSuccess)
+        {
+            if (response.Data is null)
+            {
+                return;
+            }
+            model = response.Data;
+        }
 
+    }
 
+    void OnSubmit(Company model)
+    {
+        //console.Log($"Submit: {JsonSerializer.Serialize(model, new JsonSerializerOptions() { WriteIndented = true })}");
+    }
 
-}
+    void OnInvalidSubmit(FormInvalidSubmitEventArgs args)
+    {
+        //console.Log($"InvalidSubmit: {JsonSerializer.Serialize(args, new JsonSerializerOptions() { WriteIndented = true })}");
+    }
+ }

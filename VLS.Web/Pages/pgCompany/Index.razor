@@ -5,28 +5,34 @@
 
 <h3>@Resources.Companies</h3>
 
-@if (companies != null)
-{
-    <RadzenDataGrid 
-        AllowFiltering="true" 
-        AllowColumnResize="true" 
-        AllowAlternatingRows="false" 
-        FilterMode="FilterMode.Advanced" 
-        AllowSorting="true" 
-        PageSize="5" 
-        AllowPaging="true" 
-        PagerHorizontalAlign="HorizontalAlign.Left" 
-        ShowPagingSummary="true"
-        Data="@companies" 
-        TItem="Company" 
-        ColumnWidth="300px"
-        LogicalFilterOperator="LogicalFilterOperator.Or"
-        EmptyText="@EmptyGridText"
-    >
-        <Columns>
-            <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.CompanyId)" Filterable="false" Title="ID" Frozen="true" Width="80px" TextAlign="TextAlign.Center" />
-            <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.Name)" Title="@Resources.ObjectName" Frozen="true" Width="160px" />
+<RadzenButton ButtonType="ButtonType.Button" Click="@EditRecord" Text="@Resources.Modify" Disabled="@editBtnDisabled"></RadzenButton>
+<RadzenButton ButtonType="ButtonType.Button" Click="@ClearSelection" Text="Cisti"></RadzenButton>
 
-        </Columns>
-    </RadzenDataGrid>
-}
+<RadzenDataGrid AllowFiltering="@gridConfig.AllowFiltering"
+                AllowColumnResize="@gridConfig.AllowColumnResize"
+                AllowAlternatingRows="@gridConfig.AllowAlternatingRows"
+                FilterMode="@gridConfig.FilterMode"
+                AllowSorting="@gridConfig.AllowSorting"
+                PageSize="@gridConfig.PageSize"
+                AllowPaging="@gridConfig.AllowPaging"
+                PagerHorizontalAlign="@gridConfig.PagerHorizontalAlign"
+                ShowPagingSummary="@gridConfig.ShowPagingSummary"
+                Data="@gridConfig.Data"
+                TItem="Company"
+                ColumnWidth="@gridConfig.ColumnWidth"
+                LogicalFilterOperator="@gridConfig.LogicalFilterOperator"
+                EmptyText="@gridConfig.EmptyText"
+                SelectionMode="@gridConfig.SelectionMode"
+                @bind-Value=@selectedCompanies>
+    <Columns>
+        <RadzenDataGridColumn TItem="Company" Width="60px" Sortable="false" Filterable="false">
+            <Template Context="data">
+                <RadzenCheckBox TriState="false" Value="@(selectedCompanies != null && selectedCompanies.Contains(data))"
+                                TValue="bool" Change=@(() => SelectRow(data)) />
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.CompanyId)" Filterable="false" Title="ID" Frozen="true" Width="80px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn TItem="Company" Property="@nameof(Company.Name)" Title="@Resources.ObjectName" Frozen="true" Width="160px" />
+
+    </Columns>
+</RadzenDataGrid>

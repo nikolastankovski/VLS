@@ -1,0 +1,107 @@
+﻿@attribute [Route(CompanyRoutes.Edit + "/{companyId:int?}")]
+@using Radzen.Blazor
+@using Radzen
+
+<PageTitle>@Resources.Company_Edit</PageTitle>
+<h3>@Resources.Company_Edit</h3>
+
+
+<RadzenTemplateForm TItem="Company" Data=@model Submit=@OnSubmit InvalidSubmit=@OnInvalidSubmit>
+
+    <RadzenStack Gap="2rem">
+        <RadzenFieldset Text="General Info">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn Size="12" SizeMD="6">
+                        <RadzenFormField Text="@Resources.ObjectName" Variant="@variant">
+                            <ChildContent>
+                                <RadzenTextBox Name="@Resources.ObjectName" @bind-Value=@model.Name />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="6">
+                        <RadzenFormField Text="@Resources.ObjectIdNumber" Variant="@variant">
+                            <ChildContent>
+                                <RadzenTextBox Name="@Resources.Address" @bind-Value=@model.IDNumber />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenFieldset>
+
+        <RadzenFieldset Text="Contact Info">
+            <RadzenStack Gap="1rem">
+                <RadzenRow AlignItems="AlignItems.Center">
+                    <RadzenColumn SizeMD="12" SizeLG="6">
+                        <RadzenFormField Text="@Resources.Address" Variant="@variant">
+                            <RadzenTextBox Name="@Resources.ObjectName" @bind-Value=@model.Address />
+                        </RadzenFormField>
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+                        <RadzenFormField Text="@Resources.Email" Variant="@variant">
+                            <ChildContent>
+                                <RadzenTextBox Name="@Resources.Address" @bind-Value=@model.Email />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenColumn>
+                    <RadzenColumn Size="12" SizeMD="6" SizeLG="3">
+                        <RadzenFormField Text="@Resources.Phone" Variant="@variant">
+                            <ChildContent>
+                                <RadzenTextBox Name="@Resources.Address" @bind-Value=@model.PhoneNumber />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenStack>
+        </RadzenFieldset>
+
+        <RadzenRow AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween">
+            <RadzenButton ButtonType="ButtonType.Button" Click="@Cancel" Text="Cancel"></RadzenButton>
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Submit"></RadzenButton>
+        </RadzenRow>
+
+    </RadzenStack>
+</RadzenTemplateForm>
+
+ @code {
+    Variant variant = Variant.Outlined;
+
+    Company model = new Company();
+
+    [Parameter]
+    public int companyId { get; set; }
+
+    [Inject]
+    private IBaseHttpClient httpClient { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await httpClient.GetAsync<Company>($"Companies/GetById/{companyId}");
+
+        if (response.IsSuccess)
+        {
+            if (response.Data is null)
+            {
+                return;
+            }
+            model = response.Data;
+        }
+
+    }
+
+    void OnSubmit(Company model)
+    {
+        //console.Log($"Submit: {JsonSerializer.Serialize(model, new JsonSerializerOptions() { WriteIndented = true })}");
+    }
+
+    void OnInvalidSubmit(FormInvalidSubmitEventArgs args)
+    {
+        //console.Log($"InvalidSubmit: {JsonSerializer.Serialize(args, new JsonSerializerOptions() { WriteIndented = true })}");
+    }
+
+    void Cancel()
+    {
+        Navigation.NavigateTo(CompanyRoutes.Index, true);
+    }
+ }

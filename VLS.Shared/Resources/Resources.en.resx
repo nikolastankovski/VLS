@@ -118,138 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Address" xml:space="preserve">
-    <value>Адреса</value>
+    <value>Address</value>
   </data>
   <data name="Catalogs" xml:space="preserve">
-    <value>Каталози</value>
+    <value>Catalogs</value>
   </data>
   <data name="Companies" xml:space="preserve">
-    <value>Компании</value>
+    <value>Companies</value>
   </data>
   <data name="Company" xml:space="preserve">
-    <value>Компанија</value>
+    <value>Company</value>
   </data>
   <data name="Company_Create" xml:space="preserve">
-    <value>Нова компанија</value>
+    <value>New company</value>
   </data>
   <data name="Company_Delete" xml:space="preserve">
-    <value>Избриши компанија</value>
+    <value>Delete company</value>
   </data>
   <data name="Company_Edit" xml:space="preserve">
-    <value>Промени компанија</value>
+    <value>Update company</value>
   </data>
   <data name="Course" xml:space="preserve">
-    <value>Обука</value>
+    <value>Course</value>
   </data>
   <data name="Courses" xml:space="preserve">
-    <value>Обуки</value>
+    <value>Courses</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Емаил</value>
+    <value>Email</value>
   </data>
   <data name="Employee" xml:space="preserve">
-    <value>Вработен</value>
+    <value>Employee</value>
   </data>
   <data name="Employees" xml:space="preserve">
-    <value>Вработени</value>
+    <value>Employees</value>
   </data>
   <data name="EntityNotFound" xml:space="preserve">
-    <value>Записот не постои!</value>
+    <value>Record not found!</value>
   </data>
   <data name="EntityNull" xml:space="preserve">
-    <value>Записот е празен!</value>
+    <value>Record is empty!</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Грешка!</value>
+    <value>Error!</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Се вчитува...</value>
+    <value>Loading...</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Локалитет</value>
+    <value>Location</value>
   </data>
   <data name="Locations" xml:space="preserve">
-    <value>Локалитети</value>
+    <value>Locations</value>
   </data>
   <data name="Logs" xml:space="preserve">
-    <value>Логови</value>
+    <value>Logs</value>
   </data>
   <data name="ModelStateInvalid" xml:space="preserve">
     <value>Записот не е во ред!</value>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>Промени</value>
+    <value>Modify</value>
   </data>
   <data name="NoRecordsFound" xml:space="preserve">
-    <value>Не се пронајдени записи!</value>
+    <value>No records found!</value>
   </data>
   <data name="ObjectIdNumber" xml:space="preserve">
-    <value>ЕДБ</value>
+    <value>EDB</value>
   </data>
   <data name="ObjectName" xml:space="preserve">
-    <value>Назив</value>
+    <value>Name</value>
   </data>
   <data name="OrgUnit" xml:space="preserve">
-    <value>Организациона единица</value>
+    <value>Organizational unit</value>
   </data>
   <data name="OrgUnits" xml:space="preserve">
-    <value>Организациони единици</value>
+    <value>Organizational units</value>
   </data>
   <data name="OrgUnit_short" xml:space="preserve">
-    <value>Орг. единица</value>
+    <value>Org. unit</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Телефон</value>
+    <value>Phone</value>
   </data>
   <data name="Reports" xml:space="preserve">
-    <value>Извештаи</value>
+    <value>Reports</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>Успешно!</value>
+    <value>Success!</value>
   </data>
   <data name="SuccessCreate" xml:space="preserve">
-    <value>Успешно креирано!</value>
+    <value>Successful created!</value>
   </data>
   <data name="SuccessDelete" xml:space="preserve">
-    <value>Записот е избришан!</value>
+    <value>Record is deleted!</value>
   </data>
   <data name="SuccessUpdate" xml:space="preserve">
-    <value>Успешна промена!</value>
+    <value>Succesfully modified!</value>
   </data>
   <data name="Transactions" xml:space="preserve">
-    <value>Трансакции</value>
+    <value>Transactions</value>
   </data>
   <data name="UnexpectedErrorOccured" xml:space="preserve">
-    <value>Грешка при обработка на барањето!</value>
+    <value>Unexpected error occured!</value>
   </data>
   <data name="Vehicle" xml:space="preserve">
-    <value>Возило</value>
+    <value>Vehicle</value>
   </data>
   <data name="Vehicles" xml:space="preserve">
-    <value>Возила</value>
+    <value>Vehicles</value>
   </data>
   <data name="VehicleTransactions" xml:space="preserve">
-    <value>Трансакции на возила</value>
+    <value>Vehicle transactions</value>
   </data>
   <data name="VehicleTransactions_short" xml:space="preserve">
-    <value>Транс. возила</value>
+    <value>Vehicle trans.</value>
   </data>
   <data name="Visitor" xml:space="preserve">
-    <value>Посетител</value>
+    <value>Visitor</value>
   </data>
   <data name="VisitorCourse" xml:space="preserve">
-    <value>Обука на посетител</value>
+    <value>Visitor course</value>
   </data>
   <data name="Visitors" xml:space="preserve">
-    <value>Посетители</value>
+    <value>Visitors</value>
   </data>
   <data name="VisitorsCourse" xml:space="preserve">
-    <value>Обука на посетители</value>
+    <value>Visitor courses</value>
   </data>
   <data name="VisitorTransactions" xml:space="preserve">
-    <value>Трансакции на посетители</value>
+    <value>Visitor transactions</value>
   </data>
   <data name="VisitorTransactions_short" xml:space="preserve">
-    <value>Транс. посетители</value>
+    <value>Visitor trans.</value>
   </data>
 </root>

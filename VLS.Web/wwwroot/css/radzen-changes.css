@@ -1,0 +1,27 @@
+﻿:root{
+    --header-bg-rgb: 255, 255, 255;
+    --header-items-color-rgb: 0, 0, 0;
+}
+
+.rz-header {
+    background: rgb(var(--header-bg-rgb)) !important;
+}
+
+.rz-sidebar-toggle {
+    color: rgb(var(--header-items-color-rgb)) !important;
+}
+    .rz-sidebar-toggle:hover{
+        background: none !important;
+    }
+
+.rz-menu {
+    background: none !important;
+}
+
+.rz-navigation-item-link {
+    color: rgb(var(--header-items-color-rgb)) !important;
+}
+
+    .rz-navigation-item-link i {
+        color: rgb(var(--header-items-color-rgb)) !important;
+    }

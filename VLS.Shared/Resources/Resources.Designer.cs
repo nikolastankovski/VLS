@@ -70,6 +70,15 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Каталози.
+        /// </summary>
+        public static string Catalogs {
+            get {
+                return ResourceManager.GetString("Catalogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Компании.
         /// </summary>
         public static string Companies {
@@ -115,11 +124,47 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Обука.
+        /// </summary>
+        public static string Course {
+            get {
+                return ResourceManager.GetString("Course", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обуки.
+        /// </summary>
+        public static string Courses {
+            get {
+                return ResourceManager.GetString("Courses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Емаил.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вработен.
+        /// </summary>
+        public static string Employee {
+            get {
+                return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вработени.
+        /// </summary>
+        public static string Employees {
+            get {
+                return ResourceManager.GetString("Employees", resourceCulture);
             }
         }
         
@@ -151,11 +196,65 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Се вчитува....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Локалитет.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Локалитети.
+        /// </summary>
+        public static string Locations {
+            get {
+                return ResourceManager.GetString("Locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логови.
+        /// </summary>
+        public static string Logs {
+            get {
+                return ResourceManager.GetString("Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Записот не е во ред!.
         /// </summary>
         public static string ModelStateInvalid {
             get {
                 return ResourceManager.GetString("ModelStateInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Промени.
+        /// </summary>
+        public static string Modify {
+            get {
+                return ResourceManager.GetString("Modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не се пронајдени записи!.
+        /// </summary>
+        public static string NoRecordsFound {
+            get {
+                return ResourceManager.GetString("NoRecordsFound", resourceCulture);
             }
         }
         
@@ -178,11 +277,47 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Организациона единица.
+        /// </summary>
+        public static string OrgUnit {
+            get {
+                return ResourceManager.GetString("OrgUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Орг. единица.
+        /// </summary>
+        public static string OrgUnit_short {
+            get {
+                return ResourceManager.GetString("OrgUnit_short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Организациони единици.
+        /// </summary>
+        public static string OrgUnits {
+            get {
+                return ResourceManager.GetString("OrgUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Телефон.
         /// </summary>
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Извештаи.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
             }
         }
         
@@ -223,11 +358,110 @@ namespace VLS.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected error occured!.
+        ///   Looks up a localized string similar to Трансакции.
+        /// </summary>
+        public static string Transactions {
+            get {
+                return ResourceManager.GetString("Transactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Грешка при обработка на барањето!.
         /// </summary>
         public static string UnexpectedErrorOccured {
             get {
                 return ResourceManager.GetString("UnexpectedErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Возило.
+        /// </summary>
+        public static string Vehicle {
+            get {
+                return ResourceManager.GetString("Vehicle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Возила.
+        /// </summary>
+        public static string Vehicles {
+            get {
+                return ResourceManager.GetString("Vehicles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Трансакции на возила.
+        /// </summary>
+        public static string VehicleTransactions {
+            get {
+                return ResourceManager.GetString("VehicleTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Транс. возила.
+        /// </summary>
+        public static string VehicleTransactions_short {
+            get {
+                return ResourceManager.GetString("VehicleTransactions_short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Посетител.
+        /// </summary>
+        public static string Visitor {
+            get {
+                return ResourceManager.GetString("Visitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обука на посетител.
+        /// </summary>
+        public static string VisitorCourse {
+            get {
+                return ResourceManager.GetString("VisitorCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Посетители.
+        /// </summary>
+        public static string Visitors {
+            get {
+                return ResourceManager.GetString("Visitors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обука на посетители.
+        /// </summary>
+        public static string VisitorsCourse {
+            get {
+                return ResourceManager.GetString("VisitorsCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Трансакции на посетители.
+        /// </summary>
+        public static string VisitorTransactions {
+            get {
+                return ResourceManager.GetString("VisitorTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Транс. посетители.
+        /// </summary>
+        public static string VisitorTransactions_short {
+            get {
+                return ResourceManager.GetString("VisitorTransactions_short", resourceCulture);
             }
         }
     }
