@@ -1,4 +1,4 @@
-﻿<RadzenSidebar @bind-Expanded="_isExpandedSideBar" @bind-Visible="isVisibleSideBar">
+﻿<RadzenSidebar @bind-Expanded="_isExpandedSideBar" @bind-Visible="isVisibleSideBar" @bind-Responsive="isResponsive">
     <RadzenPanelMenu Style="width:300px" Multiple="@multipleExpand">
         <RadzenPanelMenuItem Text="@Resources.Transactions" Icon="<i class='fa-solid fa-arrows-rotate'></i>">
             <RadzenPanelMenuItem Text="@Resources.VisitorTransactions" Path="buttons" Icon="<i class='fa-solid fa-people-group'></i>"></RadzenPanelMenuItem>
@@ -46,6 +46,7 @@
     private bool isVisibleSideBar = false;
     private bool _isExpandedSideBar;
     private bool multipleExpand = false;
+    private bool isResponsive = true;
 
     [Parameter]
     public bool IsExpandedSideBar

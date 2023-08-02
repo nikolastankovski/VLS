@@ -1,0 +1,12 @@
+﻿@inherits RadzenComponentWithChildren
+
+<div class="content-container">
+    <h3>@Heading</h3>
+    <hr />
+    @ChildContent
+</div>
+
+@code{
+    [Parameter]
+    public string Heading { get; set; }
+}
